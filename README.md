@@ -1,5 +1,5 @@
 # ALCF-4 Benchmarks
-This repository organizes links to the benchmark repositories for ALCF-4. 
+This repository organizes links to the benchmark repositories for ALCF-4. Each repository contains instructions for running the benchmarks. The ALCF-4 Request for Proposals (RFP) document should be reviewed before running the benchmarks.
 
 
 # List of Benchmarks
