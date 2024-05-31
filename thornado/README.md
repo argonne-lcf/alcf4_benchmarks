@@ -124,6 +124,6 @@ export LIBOMPTARGET_LEVEL_ZERO_MEMORY_POOL=device,256,128,32768
 
 Sample IMEX_Time and FOM collected for the apps with two spatial resolutions 8×8×8 and 16×16×16 using the bench_sunspot.sh script is shown below,
 
-
+![Results from sunspot](bench_sunspot.png)
 
 
