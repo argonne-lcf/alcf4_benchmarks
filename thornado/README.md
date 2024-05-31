@@ -21,132 +21,104 @@ The required Thornado version used for this benchmark, commit #f1a7244de1bc07024
 ### FOM
 
 FOM for the each app, SSW and Relaxation can be computed using the following equation,
-
+```zsh
 FOM_app = DOF * Number_of_Time_steps/ IMEX_Time 
 
 where, 
-
 DOF is the number of degrees of freedom of the phase-space discretization, that can be computed as follows, 
-
 DOF = nE * nSpecies * nMoments * nNodes^(d+1) * nX^d 
-
 nE - number of energy elements
-
 nSpecies -  number of neutrino species
-
 nMoments - number of moments
-
 nNodes -  number of quadrature nodes
-
 d -  dimensions 
-
 nX -  grid points per dimension
+```
 
 ### Software prerequisites
 
-HDF5 portable I/O library downloadable from http://www.hdfgroup.org/HDF5/ 
-
-weaklib-table from ORNL. source: git clone https://code.ornl.gov/astro/weaklib-tables.git @ af807da4767ec7eaa43f4f652f2fc48157499742
-
-weaklib from https://github.com/starkiller-astro/weaklib.git (be a submodule possibly?)
-
-BLAS/LAPACK, numerical, and linear algebra libraries. Use platform-optimized libraries where available
+* HDF5 portable I/O library downloadable from http://www.hdfgroup.org/HDF5/ 
+* weaklib-table from ORNL. source: git clone https://code.ornl.gov/astro/weaklib-tables.git @ af807da4767ec7eaa43f4f652f2fc48157499742
+* weaklib from https://github.com/starkiller-astro/weaklib.git (be a submodule possibly?)
+* BLAS/LAPACK, numerical, and linear algebra libraries. Use platform-optimized libraries where available
 
 ### Building
-
+```zsh
 tar -xzf Thornado-ALCF_4-ref.tar.gz 
-
 cd thornado/benchmark/{sys}
 
  sys - on which system/site, e.g. ‘sunspot.alcf.anl’
+```
 
 ### Building Thornado manually 
 
 #### Set root directory and directories for the tools
-
+```zsh
 export EXASTAR_HOME=${PWD}
-
 export THORNADO_DIR=${EXASTAR_HOME}/thornado
-
 export WEAKLIB_DIR=${EXASTAR_HOME}/weaklib
-
 export WEAKLIB_TABLES_DIR=${EXASTAR_HOME}/weaklib-tables
-
 export HDF5_INC=${HDF5_ROOT}/include
-
 export HDF5_LIB=${HDF5_ROOT}/lib
+```
 
 #### link weaklib tables
-
+```zsh
 ln -s $WEAKLIB_TABLES_DIR/SFHo/LowRes/wl-Op-SFHo-15-25-50-E40-B85-AbEm.h5
-
 ln -s $WEAKLIB_TABLES_DIR/SFHo/LowRes/wl-Op-SFHo-15-25-50-E40-B85-Iso.h5
-
 ln -s $WEAKLIB_TABLES_DIR/SFHo/LowRes/wl-Op-SFHo-15-25-50-E40-B85-NES.h5
-
 ln -s $WEAKLIB_TABLES_DIR/SFHo/LowRes/wl-Op-SFHo-15-25-50-E40-B85-Pair.h5
-
 ln -s $WEAKLIB_TABLES_DIR/SFHo/LowRes/wl-Op-SFHo-15-25-50-E40-HR98-Brem.h5
-
 ln -s $WEAKLIB_TABLES_DIR/SFHo/LowRes/wl-EOS-SFHo-15-25-50.h5
+```
 
 ####  Building on which system
-
+```zsh
 export THORNADO_MACHINE=sunspot.alcf.anl
-
+```
 #### Set system-specific environment variables - this is for Intel-PVC systems
-
+```zsh
 export IGC_OverrideOCLMaxParamSize=4096
-
+```
 #### Building for which applicsation,  APP_NAME is set to ‘ApplicationDriver’ for the app SSW and ‘ApplicationDriver_Neutrinos’ for the app Relaxation.
-
+```zsh
 export APP_NAME=ApplicationDriver
-
 mkdir ../Output
-
 make -j 8 {conf}
-
+```
  conf -  with which configuration/parameters, e.g. ‘USE_OMP_OL=TRUE’
-
  Example make for the system sunspot.alcf.anl using OpenMP target offloading and OneMKL
-
+```zsh
 make -f ${THORNADO_DIR}/Makefile $APP_NAME USE_OMP_OL=TRUE USE_GPU=TRUE USE_CUDA=FALSE USE_ONEMKL=TRUE
+```
 
 ### Building Thornado using proveided scripts
 
 Simply, use the provided build scripts, build.{app}.sh
-
 app -  for which app. e.g. ‘ssw’
 
-Testing The Build
+### Testing The Build
 
 This test validates the results based on the order of numerical error obtained for each nutirno species.
-
+```zsh
 test -<all> | {app}
-
 app -  for which app. e.g. ‘ssw’ 
+```
 
 ### Running the benchmark
 
 As described above, two test-apps SSW and Relaxation can be evaluated for various systems. The batch scripts for the various systems are provided in their own-named directories in the benchmark directory. Within the respective directory build the apps manually or using the appropriate scripts, and and run the benchmarks using the benchmark script (e.g bench_sunspot.sh). The script runs both apps for two spatial resolutions 8×8×8 and 16×16×16 and collects IMEX_Time and FOM. For each app and each test-data, the execution also can be manually performed using the following way,
-
+```zsh
 export LD_LIBRARY_PATH=${HDF5_LIB}:$LD_LIBRARY_PATH
-
 export LIBOMPTARGET_PLUGIN=LEVEL0
-
 export EnableImplicitScaling=0
-
 export ZE_AFFINITY_MASK=0.0
-
 export OMP_TARGET_OFFLOAD=MANDATORY
-
 export OMP_NUM_THREADS=1
-
 ulimit -s unlimited
-
 export LIBOMPTARGET_LEVEL_ZERO_MEMORY_POOL=device,256,128,32768
-
 ./${APP_NAME}_${THORNADO_MACHINE} 16 16 16  
+```
 
 ### Results
 
