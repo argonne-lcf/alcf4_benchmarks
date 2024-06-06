@@ -86,8 +86,7 @@ export APP_NAME=ApplicationDriver
 mkdir ../Output
 make -j 8 {conf}
 ```
- conf -  with which configuration/parameters, e.g. ‘USE_OMP_OL=TRUE’
- #### Example make for the system sunspot.alcf.anl using OpenMP target offloading and OneMKL
+ conf -  with which configuration/parameters, e.g. ‘USE_OMP_OL=TRUE’\ Example make for the system sunspot.alcf.anl using OpenMP target offloading and OneMKL,
 ```zsh
 make -f ${THORNADO_DIR}/Makefile $APP_NAME USE_OMP_OL=TRUE USE_GPU=TRUE USE_CUDA=FALSE USE_ONEMKL=TRUE
 ```
