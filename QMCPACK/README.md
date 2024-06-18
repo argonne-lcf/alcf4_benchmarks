@@ -33,17 +33,30 @@ FOM is throughput based,
 ```zsh
 FOM = number_of_MPI_ranks * walkers_per_rank * steps / walltime
 ```
-For this benchmark, the total number of steps and walltime can be found as the call counts of the `VMCBatched::RunSteps` timer entry in the QMCPACK output.
+For this benchmark, the total number of steps and walltime can be found as the call count of the `VMCBatched::RunSteps` timer entry in the QMCPACK output.
 
 
 ### QMCPACK configuration used in Aurora benchmark
-```
+```bash
 cmake -DCMAKE_C_COMPILER=mpicc -DCMAKE_CXX_COMPILER=mpicxx -DCMAKE_CXX_FLAGS="-mllvm -vpo-paropt-atomic-free-reduction-slm=true" \
       -DENABLE_OFFLOAD=ON -DENABLE_SYCL=ON -DQMC_MIXED_PRECISION=ON ..
 ```
 
-### Running the benchmark
+### Running the benchmark on Aurora
+```bash
+NNODES=`wc -l < $PBS_NODEFILE` # access the compute node count from PBS
+NRANKS=12                      # Number of MPI ranks per node.
+NDEPTH=8                       # Number of hardware threads per rank, spacing between MPI ranks on a node
+export OMP_NUM_THREADS=8       # OpenMP threads. (required to be <= NDEPTH)
+# CPU binding. the first 6 ranks are placed on the first socket and the last 6 ranks on the second socket.
+CPU_BIND=list:1-8:9-16:17-24:25-32:33-40:41-48:53-60:61-68:69-76:77-84:85-92:93-100
 
+NTOTRANKS=$(( NNODES * NRANKS ))
+export ZE_FLAT_DEVICE_HIERARCHY=COMPOSITE # work with gpu_tile_compact.sh script to distribute one GPU tile per MPI rank.
 
+mpiexec -np ${NTOTRANKS} -ppn ${NRANKS} -d ${NDEPTH} --cpu-bind $CPU_BIND ../gpu_tile_compact.sh $exe_bin/qmcpack --enable-timers=fine NiO-a256-vmc.xml > NiO-a256-vmc.out
+```
+More info about how to run QMCPACK efficiently can be found at https://qmcpack.readthedocs.io/en/develop/running.html.
 
 ### Results
+Walker count scanning is a needed step to maximize accelerator performance.
