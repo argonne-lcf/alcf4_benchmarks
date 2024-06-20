@@ -13,8 +13,9 @@ Questions should be directed to `aclf4-benchmarks@alcf.anl.gov`
 
 ## ModSim
 
-- Benchmark `link to repo`
-- Benchmark `link to repo`
+- [HACC](HACC)
+- [QMCPACK](QMCPACK)
+- [Thornado](thornado)
 
 ## Workflows
 
