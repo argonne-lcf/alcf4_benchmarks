@@ -16,12 +16,14 @@ cd alcf4_benchmarks
 git submodule update --init
 ```
 
-We also provide a convenience script that will perform the same action:
+A convenience script that will perform the same action is also provided:
 ```
 git clone https://github.com/argonne-lcf/alcf4_benchmarks.git
 cd alcf4_benchmarks/HACC
 ./git_submodule_init.sh
 ```
+
+The ALCF4 HACC benchmark source code can also be obtained directly from the publicly-accessible project on the Argonne CELS gitlab: https://git.cels.anl.gov/hacc/HACC-B24
 
 ### HACC configuration used in Aurora benchmark
 
