@@ -1,0 +1,3 @@
+[submodule "HACC/HACC-B24"]
+	path = HACC/HACC-B24
+	url = https://git.cels.anl.gov/hacc/HACC-B24.git
