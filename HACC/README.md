@@ -35,6 +35,12 @@ The ALCF4 HACC benchmark source code can also be obtained directly from the publ
 
 ### FOM
 
+The reported figure of merit is calculated as the total number of particles divided by the run time.
+```
+FOM = (np*np*np) / time
+```
+The FOM must be reported for `nstep=3` and `nsub=5`.
+
 ### Software prerequisites
 
 ### Building HACC
