@@ -19,6 +19,6 @@ Questions should be directed to `alcf4-benchmarks@alcf.anl.gov`
 
 ## Workflows
 
-- Benchmark `link to repo`
-- Benchmark `link to repo`
+- [nekRS-ML](nekRS-ML)
+
 
