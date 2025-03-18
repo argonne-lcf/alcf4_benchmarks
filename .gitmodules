@@ -1,3 +1,7 @@
 [submodule "HACC/HACC-B24"]
 	path = HACC/HACC-B24
 	url = https://git.cels.anl.gov/hacc/HACC-B24.git
+[submodule "nekRS-ML/nekRS-ML_ALCF4"]
+	path = nekRS-ML/nekRS-ML_ALCF4
+	url = https://github.com/argonne-lcf/nekRS.git
+	branch = simai_alcf-4

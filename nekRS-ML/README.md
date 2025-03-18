@@ -1,42 +1,67 @@
-# Solution shooting workflow with a GNN surrogate for turbulent flows using ADIOS2
+# nekRS-ML: Solution shooting workflow for fluid dynamic simulations with nekRS, a GNN surrogate and ADIOS2
 
-This benchmark combines online training of a GNN surrogate model with inference of the trained model to shoot the solution forward and thus accelerate a long simulation compaign. 
-The workflow leverages the following assumption -- for a sufficiently accurate, robust and fast surrogate model, trained to advance the solution with a time step size larger than that required by the CFL constraints of nekRS, the simulation campaign can be acelerated by replacing nekRS with the surrogate and shoot the solution forward in time, where it can then be picked back up by nekRS for more model fine-tuning. 
-The flow problem is a large eddy simulation (LES) of a turbulent channel flow with Reynolds number based on the friction velocity of Re_tau=550.
+## Description
 
-The workflow is composed of the following two stages:
+This benchmark combines a computational fluid dynamics (CFD) simulation with online training and inference of a mesh-based graph neural network (GNN) surrogate model with the goal of "shooting" the solution forward in time, thereby accelerating a long simulation compaign. 
+The solution shooting workflow relies on accurate, robust, and efficient surrogate models to advance the solution trajectory in time faster than the high-fidelity CFD code alone. 
+To do so, the surrogate can leverage both computational efficiency and larger time integration steps. 
 
-* Online fine-tuning of the GNN surrogate. This step runs concurrently a high-fidelity nekRS simulation and GNN distributed training, streaming training data from the simulation to the trainer at a constant interval.
-* Shooting the solution forward. This step deploys the GNN surrogate for inference, feeding the GNN predictions bask as inputs for the next step in order to advance the solution state in time.
+The workflow is composed of the following two stages, run one after the other as shown in Figure 1 below:
 
-The workflow is set up using ADIOS2 to share data between nekRS, the GNN training module, and the GNN inference module. 
-Specifically, the following information is shared between components:
+* **Online fine-tuning of the GNN surrogate** This step runs a high-fidelity CFD simulation with the nekRS code and GNN distributed training cuncurrently on the system, streaming training data from the simulation to the trainer at a constant interval.
+* **Solution shooting with ML surrogate** This step deploys the GNN surrogate for inference, starting from a solution checkpoint as initial condition and then rolling out the surrogate by feeding the model predictions back as inputs for the next iteration in order to advance the solution state in time.
 
-* The data structures needed to build the GNN grpah from the nekRS mesh. This information is shared through the file system because it is needed by the inferencing step as well, thus it needs to be persistent beyond the nekRS run. These data structures are computed once before the nekRS time step loop and written in `graph.bp` with ADIOS2.
-* The pair of solution snapshots at every mesh node which represent the input and output data to the GNN model. These are streamed (data is shared through the high-speed network, not through the file system) from nekRS to the GNN trainer with the ADIOS2 SST engine. nekRS is configured to share these snapshot at a predetermined frequency set in the `turbChannel.udf` file.
-* A small file called `check-run.bp` used to tell nekRS to exit cleanly when the GNN trainer reaches a stopping point (e.g., a preset maximum  number of iterations or a tolerance on the training loss).
-* A solution checkpoint for the last nekRS time step saved as the simulation exit cleanly. This is stored in `checkpoint.bp` and is loaded by the inference module as an initial condition to then advance the solution state with the GNN.
+| ![](figures/workflow.png) | 
+|:--:| 
+| *Figure 1. Schematic of the solution shooting workflow.* |
 
-The workflow makes use of new plugins added to the nekRS code. 
-The plugin API are called from the `turbChannel.udf` file, specifically within `UDF_Setup()` for initialization and `UDF_ExecuteStep()` to execute tasks every simulation time step.
+The workflow is made up of the following two components:
 
-* `adiosStreamer.hpp`: plugin that creates client with a few ADIOS2 IO objects to enable streaming and I/O of data from other plugins. This plugin also checks when the trainer signals nekRS to quit running and is used to write a checkpoint file to disk at the end of the run. 
-* `gnn.hpp`: plugin that computes the graph data structures and communicates them to the trainer (or simply writes them to disk).
-* `trajGen.hpp`: plugin that generates a trajectory of training data for the GNN surrogate. The trajectory consists of two solution snapshots from two successive time steps.
+* **nekRS:** [nekRS](https://github.com/argonne-lcf/nekRS) is a GPU-capable and highly scalable code for thermal-fluids simulations based on the spectral element method. For portability, the code is based on the open concurrent compute abstraction (OCCA) with CUDA, HIP and SYCL backends. The code leverages advances from [libParanumal](https://github.com/paranumal/libparanumal) and its precursor [nek5000](https://github.com/Nek5000/Nek5000). nekRS was a finlaist for the 2023 ACM Gordon Bell Prize when coupled with a Monte Carlo neutron transport code. More details on nekRS can be found at [this reference](https://www.sciencedirect.com/science/article/pii/S0167819122000710).
+* **Mesh-based consistent GNN:** The ML surrogate being used is a distributed GNN for mesh-based modeling using consistent loss and neural message passing layers. The GNN works partitions of the entire graph, called sub-graphs, which are created directly from the CFD mesh used by nekRS, thereby enabling training and inference on extremely large graphs. The GNN implements a halo exchange in the neural message passing layers to ensure node aggregation steps span across sub-graphs. The halo exchanges, together with a consistent loss computation, guarantee continuity in the predictions actross sub-graphs and consistency during training and inference, where consistency refers to the fact that the GNN trained and evaluated on one rank (one large graph) is arithmetically equivalent to evaluations on multiple ranks (a partitioned graph). The GNN is implemented in PyTorch and PyTorch Geometric and distributed training is performed with PyTorch DDP. More details on the GNN can be found at [this reference](https://ieeexplore.ieee.org/abstract/document/10820662).
+
+The workflow is implemented using [ADIOS2](https://github.com/ornladios/ADIOS2) to transfer data between components. The following data transfers are performed, as shown in Figure 1:
+
+* **sub-graph data:** The data structures needed to build the graph and halo exchange information are extracted from the nekRS partitioned mesh and shared with the GNN training component through the file system, since this information is also needed during inference and thus needs to persist beyond the fine-tuning step. This data is written once at the beginning of the nekRS run, and any I/O performed with this data *is not* included in FOM measurements.
+* **training data:** The GNN training data consists of two time steps of the three components of the velocity vector at every mesh grid point (thus at every graph node). Specifically, the input is the solution field at time *t*, *u(t)*, and the output is the the solution at a later time, *u(t+dt)*. This data is streamed between nekRS and GNN training through the ADIOS2 SST engine making use of the system interconnect when scaling up to multiple nodes. Transfer of the training data *is* included in the FOM measurements. Currently, there is a 1-1 relationship between nekRS mesh partitions and GNN sub-graphs, meaning that nekRS and GNN training both run on N MPI ranks. Thus, the training data is transferred in a N-N pattern as shown in Figure 2.  
+* **solution checkpoint:**: At the end of fine-tuning, nekRS writes a solution checkpoint in order for GNN inference to advance the solution from where the simulation left off. The checkpoint is written to the file system and any I/O with this data *is not* included in FOM measurements.
+
+| ![](figures/data_streaming.png) | 
+|:--:| 
+| *Figure 2. Schematic of the training data transfer between nekRS and GNN training ranks. Note that the ordered pairing of simulation and training ranks (i.e., rank 0 of nekRS sending data to rank 0 of GNN training) shown in the diagram is not enforced in the benchmark.* |
 
 
-## Building nekRS
+## Main system components targeted
 
-To build nekRS with the GNN plugin, simply execute the build script `BuildMeOnAurora` from the top directory of the nekRS repo
+
+## Figures of Merit (FOM)
+
+The benchmark collects separate FOM for the fine-tuning and inference steps of the workflow.
+
+For the GNN online fine-tuning step, the FOM is defined as follows:
+
+
+For the GNN inference step, the FOM is defined as follows:
+
+
+## Building nekRS-ML
+
+To build nekRS with the required plugins and ADIOS2, simply execute or modify one of the the build scripts provided in the top directory of the nekRS repo.
+For example, to build on Aurora execute
+
 ```bash
 source BuildMeOnAurora
 ```
 
-NOTE: you can disable building SmartRedis for this benchmark since it is performing online training with the ADIOS2 backend. 
+Note:
 
-## Runnig the benchmark
+* The build and run scripts for the benchmark rely on the environment variable `NEKRS_HOME` being set. This is where install direcotory for nekRS where the executable will be found along with the header files and the GNN training and inference code. By default, nekRS is installed in the user's home directory, but users can change this variable in the build scripts as desired.
 
-Scripts are provided in the benchmark case directory to conveniently generate run scripts and config files for the workflow on the different ALCF systems.
+
+## Running the benchmark
+
+The ALCF-4 benchmark is located in the [shooting_workflow_adios](./nekRS-ML_ALCF4/examples/shooting_workflow_adios) example within the nekRS repo.
+Scripts are provided in the case directory to generate run scripts and config files for the workflow on the different ALCF systems.
 Note that a virtual environment with PyTorch Geometric is needed for the GNN.
 If you don't specify a virtual environment path, the script will create one for you.
 From an interactive session on the compute nodes, first execute
@@ -63,8 +88,11 @@ The script generates the run script, which is executed with
 
 The `run.sh` script is composed of two steps:
 
-- First nekRS is run by itself with the `--build-only` flag. This is done such that the `.cache` directory can be built beforehand instead of during online training. This step can be run only once and is helpful to not hang the progress of the simulation and GNN training while the cache is built.
-- Execution of the workflow driver script `driver.py` with Python, which takes in the setting in the `config.yaml` file and launches fine tuning (nekRS + GNN training) followed by GNN inference on the requested resources. 
+* First nekRS is run by itself with the `--build-only` flag. This is done such that the `.cache` directory can be built beforehand instead of during online training. This step can be run only once and is helpful to not halt the progress of the benchmark while the cache is built.
+* Execution of the workflow driver script `driver.py` with Python, which takes in the setting in the `config.yaml` file and launches fine tuning (nekRS + GNN training) followed by GNN inference on the requested resources. 
 
 The outputs logs of the nekRS, trainer and inference will be within the `./logs` directory created at runtime.
+
+
+## Rules for running the benchmark
 
