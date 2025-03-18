@@ -1,4 +1,4 @@
-# Solution shooting workflow with a GNN surrogate for turbulent flows using ADIOS2
+# nekRS-ML: Solution shooting workflow for fluid dynamic simulations with nekRS, a GNN surrogate and ADIOS2
 
 This benchmark combines online training of a GNN surrogate model with inference of the trained model to shoot the solution forward and thus accelerate a long simulation compaign. 
 The workflow leverages the following assumption -- for a sufficiently accurate, robust and fast surrogate model, trained to advance the solution with a time step size larger than that required by the CFL constraints of nekRS, the simulation campaign can be acelerated by replacing nekRS with the surrogate and shoot the solution forward in time, where it can then be picked back up by nekRS for more model fine-tuning. 
