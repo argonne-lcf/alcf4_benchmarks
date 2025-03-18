@@ -34,7 +34,7 @@ The workflow is implemented using [ADIOS2](https://github.com/ornladios/ADIOS2) 
 ## Main system components targeted
 
 
-## Figues of Merit (FOM)
+## Figures of Merit (FOM)
 
 The benchmark collects separate FOM for the fine-tuning and inference steps of the workflow.
 
@@ -58,7 +58,7 @@ Note:
 * The build and run scripts for the benchmark rely on the environment variable `NEKRS_HOME` being set. This is where install direcotory for nekRS where the executable will be found along with the header files and the GNN training and inference code. By default, nekRS is installed in the user's home directory, but users can change this variable in the build scripts as desired.
 
 
-## Runnig the benchmark
+## Running the benchmark
 
 The ALCF-4 benchmark is located in the [shooting_workflow_adios](./nekRS-ML_ALCF4/examples/shooting_workflow_adios) example within the nekRS repo.
 Scripts are provided in the case directory to generate run scripts and config files for the workflow on the different ALCF systems.
