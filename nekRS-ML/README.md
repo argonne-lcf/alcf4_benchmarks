@@ -11,9 +11,11 @@ The workflow is composed of the following two stages, run one after the other as
 * **Online fine-tuning of the GNN surrogate** This step runs a high-fidelity CFD simulation with the nekRS code and GNN distributed training cuncurrently on the system, streaming training data from the simulation to the trainer at a constant interval.
 * **Solution shooting with ML surrogate** This step deploys the GNN surrogate for inference, starting from a solution checkpoint as initial condition and then rolling out the surrogate by feeding the model predictions back as inputs for the next iteration in order to advance the solution state in time.
 
+<center>
 | ![](figures/workflow.png) | 
 |:--:| 
 | *Figure 1. Schematic of the solution shooting workflow.* |
+</center>
 
 The workflow is made up of the following two components:
 
@@ -26,10 +28,11 @@ The workflow is implemented using [ADIOS2](https://github.com/ornladios/ADIOS2) 
 * **training data:** The GNN training data consists of two time steps of the three components of the velocity vector at every mesh grid point (thus at every graph node). Specifically, the input is the solution field at time *t*, *u(t)*, and the output is the the solution at a later time, *u(t+dt)*. This data is streamed between nekRS and GNN training through the ADIOS2 SST engine making use of the system interconnect when scaling up to multiple nodes. Transfer of the training data *is* included in the FOM measurements. Currently, there is a 1-1 relationship between nekRS mesh partitions and GNN sub-graphs, meaning that nekRS and GNN training both run on N MPI ranks. Thus, the training data is transferred in a N-N pattern as shown in Figure 2.  
 * **solution checkpoint:** At the end of fine-tuning, nekRS writes a solution checkpoint in order for GNN inference to advance the solution from where the simulation left off. The checkpoint is written to the file system and any I/O with this data *is not* included in FOM measurements.
 
+<center>
 | ![](figures/data_streaming.png) | 
 |:--:| 
 | *Figure 2. Schematic of the training data transfer between nekRS and GNN training ranks. Note that the ordered pairing of simulation and training ranks (i.e., rank 0 of nekRS sending data to rank 0 of GNN training) shown in the diagram is not enforced in the benchmark.* |
-
+</center>
 
 ## Main system components targeted
 
