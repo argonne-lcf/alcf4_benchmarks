@@ -11,9 +11,13 @@ The workflow is composed of the following two stages, run one after the other as
 * **Online fine-tuning of the GNN surrogate** This step runs a high-fidelity CFD simulation with the nekRS code and GNN distributed training cuncurrently on the system, streaming training data from the simulation to the trainer at a constant interval.
 * **Solution shooting with ML surrogate** This step deploys the GNN surrogate for inference, starting from a solution checkpoint as initial condition and then rolling out the surrogate by feeding the model predictions back as inputs for the next iteration in order to advance the solution state in time.
 
+<center>
+
 | ![](figures/workflow.png) | 
 |:--:| 
 | *Figure 1. Schematic of the solution shooting workflow.* |
+
+</center>
 
 The workflow is made up of the following two components:
 
@@ -24,14 +28,36 @@ The workflow is implemented using [ADIOS2](https://github.com/ornladios/ADIOS2) 
 
 * **sub-graph data:** The data structures needed to build the graph and halo exchange information are extracted from the nekRS partitioned mesh and shared with the GNN training component through the file system, since this information is also needed during inference and thus needs to persist beyond the fine-tuning step. This data is written once at the beginning of the nekRS run, and any I/O performed with this data *is not* included in FOM measurements.
 * **training data:** The GNN training data consists of two time steps of the three components of the velocity vector at every mesh grid point (thus at every graph node). Specifically, the input is the solution field at time *t*, *u(t)*, and the output is the the solution at a later time, *u(t+dt)*. This data is streamed between nekRS and GNN training through the ADIOS2 SST engine making use of the system interconnect when scaling up to multiple nodes. Transfer of the training data *is* included in the FOM measurements. Currently, there is a 1-1 relationship between nekRS mesh partitions and GNN sub-graphs, meaning that nekRS and GNN training both run on N MPI ranks. Thus, the training data is transferred in a N-N pattern as shown in Figure 2.  
-* **solution checkpoint:**: At the end of fine-tuning, nekRS writes a solution checkpoint in order for GNN inference to advance the solution from where the simulation left off. The checkpoint is written to the file system and any I/O with this data *is not* included in FOM measurements.
+* **solution checkpoint:** At the end of fine-tuning, nekRS writes a solution checkpoint in order for GNN inference to advance the solution from where the simulation left off. The checkpoint is written to the file system and any I/O with this data *is not* included in FOM measurements.
+
+<center>
 
 | ![](figures/data_streaming.png) | 
 |:--:| 
 | *Figure 2. Schematic of the training data transfer between nekRS and GNN training ranks. Note that the ordered pairing of simulation and training ranks (i.e., rank 0 of nekRS sending data to rank 0 of GNN training) shown in the diagram is not enforced in the benchmark.* |
 
+</center>
 
 ## Main system components targeted
+
+Below are the system components the benchmark is designed to stress.
+
+**nekRS**
+
+* Accelerator HBM bandwidth
+* More details are upcoming
+
+**Mesh-based consistent GNN**
+
+* Accelerator HBM size: memory size impacts both size of problem (defined by the size of the sub-graph) that can be solved and the model size (no model parallelism)
+* Accelerator HBM bandwidth: GNN GEMM, layer-norm, activations, and PyG reduce/scatter kernels are bandwidth bound
+* High-speed interconect: GNN halo exchange, which is implemented either as alltoallv or send-receive, requires large buffer sizes (~60MB) and is performed multiple times per training iteration (once per neural message passing layer in forward and backward pass, i.e. 16 times per iteration). An efficient halo exchange is key for scaling the model.
+
+**Online fine-tuning**
+
+* Node DDR size: memory size impacts the number of solution snapshots (i.e., training samples) that can be stored in-memory during fine-tuning
+* High-speed interconnect: training data transfer can be a bottleneck at scale on the GNN fine-tuning. Efficient data transfer is key for efficient fine-tuning at scale.
+* System design: given specialized hardware for AI and Mod-Sim applications or the use of general purpose accelerators, the workflow measures how this hardware comes together to form the full system 
 
 
 ## Figures of Merit (FOM)
@@ -39,10 +65,14 @@ The workflow is implemented using [ADIOS2](https://github.com/ornladios/ADIOS2) 
 The benchmark collects separate FOM for the fine-tuning and inference steps of the workflow.
 
 For the GNN online fine-tuning step, the FOM is defined as follows:
-
+```math
+FOM_{fine tune} = \frac{N_{nodes} \times N_{max samples} \times N_{GNN}}{t_{fine tune}}
+```
 
 For the GNN inference step, the FOM is defined as follows:
-
+```math
+FOM_{inference} = \frac{N_{nodes} \times N_{GNN}}{t_{inference}}
+```
 
 ## Building nekRS-ML
 
@@ -59,6 +89,8 @@ Note:
 
 
 ## Running the benchmark
+
+**Warning:** Benchmark run instructions are in the process of being updated.
 
 The ALCF-4 benchmark is located in the [shooting_workflow_adios](./nekRS-ML_ALCF4/examples/shooting_workflow_adios) example within the nekRS repo.
 Scripts are provided in the case directory to generate run scripts and config files for the workflow on the different ALCF systems.
@@ -96,3 +128,4 @@ The outputs logs of the nekRS, trainer and inference will be within the `./logs`
 
 ## Rules for running the benchmark
 
+A set of rules for running the nekRS-ML benchmark is upcoming. 
