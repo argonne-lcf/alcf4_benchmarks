@@ -12,9 +12,11 @@ The workflow is composed of the following two stages, run one after the other as
 * **Solution shooting with ML surrogate** This step deploys the GNN surrogate for inference, starting from a solution checkpoint as initial condition and then rolling out the surrogate by feeding the model predictions back as inputs for the next iteration in order to advance the solution state in time.
 
 <center>
+
 | ![](figures/workflow.png) | 
 |:--:| 
 | *Figure 1. Schematic of the solution shooting workflow.* |
+
 </center>
 
 The workflow is made up of the following two components:
@@ -29,9 +31,11 @@ The workflow is implemented using [ADIOS2](https://github.com/ornladios/ADIOS2) 
 * **solution checkpoint:** At the end of fine-tuning, nekRS writes a solution checkpoint in order for GNN inference to advance the solution from where the simulation left off. The checkpoint is written to the file system and any I/O with this data *is not* included in FOM measurements.
 
 <center>
+
 | ![](figures/data_streaming.png) | 
 |:--:| 
 | *Figure 2. Schematic of the training data transfer between nekRS and GNN training ranks. Note that the ordered pairing of simulation and training ranks (i.e., rank 0 of nekRS sending data to rank 0 of GNN training) shown in the diagram is not enforced in the benchmark.* |
+
 </center>
 
 ## Main system components targeted
