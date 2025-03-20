@@ -73,7 +73,7 @@ FOM_{fine tune} = H(FOM_{nekRS}, FOM_{train}, FOM_{transfer})
 where
 
 ```math
-FOM_{nekRS} = \frac{N_{nodes} \times N_{nekRS}}{t_{nekRS}} [mesh nodes / sec] 
+FOM_{nekRS} = \frac{N_{nodes} \times N_{nekRS}}{t_{nekRS}} \quad \text{[mesh nodes / sec]}
 ```
 ```math
 FOM_{train} = \frac{N_{nodes} \times N_{train}}{t_{train}} [graph nodes / sec] 
