@@ -74,9 +74,11 @@ where
 
 ```math
 FOM_{nekRS} = \frac{N_{nodes} \times N_{nekRS}}{t_{nekRS}} [mesh nodes / sec] 
-
+```
+```math
 FOM_{train} = \frac{N_{nodes} \times N_{train}}{t_{train}} [graph nodes / sec] 
-
+```
+```math
 FOM_{transfer} = \left< \frac{data size}{t_{transfer}} \right> [MB / sec]
 ```
 
