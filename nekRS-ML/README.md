@@ -79,7 +79,7 @@ FOM_{nekRS} = \frac{N_{nodes} \times N_{nekRS}}{t_{nekRS}} \quad \text{[mesh nod
 FOM_{train} = \frac{N_{nodes} \times N_{train}}{t_{train}} \quad \text{[graph nodes / sec]}
 ```
 ```math
-FOM_{transfer} = \left< \frac{\text{data \: size}}{t_{transfer}} \right> \quad \text{[MB / sec]}
+FOM_{transfer} = \left< \frac{\text{data size}}{t_{transfer}} \right> \quad \text{[MB / sec]}
 ```
 
 For the solution shooting stage, the FOM is defined as the ratio of the GNN inference throughput relative to the nekRS throughput, thus evaluating the ability of the GNN surrogate to advance the solution relative to the simulation code.
