@@ -8,8 +8,8 @@ To do so, the surrogate can leverage both computational efficiency and larger ti
 
 The workflow is composed of the following two stages, run one after the other as shown in Figure 1 below:
 
-* **Online fine-tuning of the GNN surrogate** This step runs a high-fidelity CFD simulation with the nekRS code and GNN distributed training cuncurrently on the system, streaming training data from the simulation to the trainer at a constant interval.
-* **Solution shooting with ML surrogate** This step deploys the GNN surrogate for inference, starting from a solution checkpoint as initial condition and then rolling out the surrogate by feeding the model predictions back as inputs for the next iteration in order to advance the solution state in time.
+* **Online fine-tuning of the GNN surrogate** This stage runs a high-fidelity CFD simulation with the nekRS code and GNN distributed training cuncurrently on the system, streaming training data from the simulation to the trainer at a constant interval.
+* **Solution shooting with ML surrogate** This stage deploys the GNN surrogate for inference, starting from a solution checkpoint as initial condition and then rolling out the surrogate by feeding the model predictions back as inputs for the next iteration in order to advance the solution state in time.
 
 <center>
 
@@ -26,7 +26,7 @@ The workflow is made up of the following two components:
 
 The workflow is implemented using [ADIOS2](https://github.com/ornladios/ADIOS2) to transfer data between components. The following data transfers are performed, as shown in Figure 1:
 
-* **sub-graph data:** The data structures needed to build the graph and halo exchange information are extracted from the nekRS partitioned mesh and shared with the GNN training component through the file system, since this information is also needed during inference and thus needs to persist beyond the fine-tuning step. This data is written once at the beginning of the nekRS run, and any I/O performed with this data *is not* included in FOM measurements.
+* **sub-graph data:** The data structures needed to build the graph and halo exchange information are extracted from the nekRS partitioned mesh and shared with the GNN training component through the file system, since this information is also needed during inference and thus needs to persist beyond the fine-tuning stage. This data is written once at the beginning of the nekRS run, and any I/O performed with this data *is not* included in FOM measurements.
 * **training data:** The GNN training data consists of two time steps of the three components of the velocity vector at every mesh grid point (thus at every graph node). Specifically, the input is the solution field at time *t*, *u(t)*, and the output is the the solution at a later time, *u(t+dt)*. This data is streamed between nekRS and GNN training through the ADIOS2 SST engine making use of the system interconnect when scaling up to multiple nodes. Transfer of the training data *is* included in the FOM measurements. Currently, there is a 1-1 relationship between nekRS mesh partitions and GNN sub-graphs, meaning that nekRS and GNN training both run on N MPI ranks. Thus, the training data is transferred in a N-N pattern as shown in Figure 2.  
 * **solution checkpoint:** At the end of fine-tuning, nekRS writes a solution checkpoint in order for GNN inference to advance the solution from where the simulation left off. The checkpoint is written to the file system and any I/O with this data *is not* included in FOM measurements.
 
@@ -62,17 +62,33 @@ Below are the system components the benchmark is designed to stress.
 
 ## Figures of Merit (FOM)
 
-The benchmark collects separate FOM for the fine-tuning and inference steps of the workflow.
+The benchmark collects separate FOM for the fine-tuning and inference stages of the workflow.
 
-For the GNN online fine-tuning step, the FOM is defined as follows:
+For the GNN online fine-tuning stage, the FOM is defined as the Harmonic sum of three FOM measuring throughput of nekRS, GNN training, and the training data transfer, which are the key components of this stage.
+
 ```math
-FOM_{fine tune} = \frac{N_{nodes} \times N_{max samples} \times N_{GNN}}{t_{fine tune}}
+FOM_{fine tune} = H(FOM_{nekRS}, FOM_{train}, FOM_{transfer})
 ```
 
-For the GNN inference step, the FOM is defined as follows:
+where
+
 ```math
-FOM_{inference} = \frac{N_{nodes} \times N_{GNN}}{t_{inference}}
+FOM_{nekRS} = \frac{N_{nodes} \times N_{nekRS}}{t_{nekRS}} [mesh nodes / sec]
+FOM_{train} = \frac{N_{nodes} \times N_{train}}{t_{train}} [graph nodes / sec]
+FOM_{transfer} = \left< \frac{data size}{t_{transfer}} \right> [MB / sec]
 ```
+
+For the solution shooting stage, the FOM is defined as the ratio of the GNN inference throughput relative to the nekRS throughput, thus evaluating the ability of the GNN surrogate to advance the solution relative to the simulation code.
+```math
+FOM_{shoot} = \frac{FOM_{inference}}{FOM_{nekRS}}
+```
+
+where
+
+```math
+FOM_{train} = \frac{N_{nodes} \times N_{inference}}{t_{inference}} [graph nodes / sec]
+```
+
 
 ## Building nekRS-ML
 
