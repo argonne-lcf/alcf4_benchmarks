@@ -7,9 +7,8 @@ Questions should be directed to `alcf4-benchmarks@alcf.anl.gov`
 # List of Benchmarks
 
 ## AI
+- [AI Benchmarks](https://github.com/argonne-lcf/alcf4_aibenchmarks)
 
-- Benchmark `link to repo`
-- Benchmark `link to repo`
 
 ## ModSim
 
