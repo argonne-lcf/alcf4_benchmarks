@@ -79,7 +79,7 @@ FOM_{nekRS} = \frac{N_{nodes} \times N_{nekRS}}{t_{nekRS}} \quad \text{[mesh nod
 FOM_{train} = \frac{N_{nodes} \times N_{train}}{t_{train}} \quad \text{[graph nodes / sec]}
 ```
 ```math
-FOM_{transfer} = \left< \frac{data \: size}{t_{transfer}} \right> \quad \text{[MB / sec]}
+FOM_{transfer} = \left< \frac{data \: size}{t_{transfer}} \right> \quad \text{[TB / sec]}
 ```
 
 and $N_{nekRS}$, $N_{train}$ are the number of nekRS time steps and GNN training steps performed, respectively.
