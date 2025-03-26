@@ -73,10 +73,10 @@ FOM_{fine \: tune} = H(FOM_{nekRS}, \: FOM_{train}, \: FOM_{transfer})
 where
 
 ```math
-FOM_{nekRS} = \frac{N_{nodes} \times N_{nekRS}}{t_{nekRS}} \quad \text{[mesh nodes / sec]}
+FOM_{nekRS} = \frac{N_{nodes} \times N_{nekRS}}{t_{nekRS}} \quad \text{[million mesh nodes / sec]}
 ```
 ```math
-FOM_{train} = \frac{N_{nodes} \times N_{train}}{t_{train}} \quad \text{[graph nodes / sec]}
+FOM_{train} = \frac{N_{nodes} \times N_{train}}{t_{train}} \quad \text{[million graph nodes / sec]}
 ```
 ```math
 FOM_{transfer} = \left< \frac{data \: size}{t_{transfer}} \right> \quad \text{[TB / sec]}
@@ -92,7 +92,7 @@ FOM_{shoot} = \frac{FOM_{inference}}{FOM_{nekRS}}
 where
 
 ```math
-FOM_{inference} = \frac{N_{nodes} \times N_{inference}}{t_{inference}} \quad \text{[graph nodes / sec]}
+FOM_{inference} = \frac{N_{nodes} \times N_{inference}}{t_{inference}} \quad \text{[million graph nodes / sec]}
 ```
 
 and $N_{inference}$ is the number of GNN inference steps performed.
