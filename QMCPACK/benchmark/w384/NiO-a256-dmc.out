@@ -1,0 +1,1113 @@
+  Input file(s): NiO-a256-dmc.xml 
+================================================================
+                        QMCPACK 4.0.0
+
+          (c) Copyright 2003-2023 QMCPACK developers
+
+                         Please cite:
+      J. Kim et al. J. Phys. Cond. Mat. 30 195901 (2018)
+           https://doi.org/10.1088/1361-648X/aab9c3
+                             and
+       P. Kent et al. J. Chem. Phys. 152 174105 (2020)
+              https://doi.org/10.1063/5.0004860
+
+  Git branch: HEAD
+  Last git commit: 0199944fb644b4798446fdfc0549c81666a4a943
+  Last git commit date: Wed Feb 5 15:42:41 2025 -0500
+  Last git commit subject: Merge pull request #5298 from QMCPACK/rc_400
+================================================================
+  Global options 
+
+  Total number of MPI ranks = 12
+  Number of MPI groups      = 1
+  MPI group ID              = 0
+  Number of ranks in group  = 12
+  MPI ranks per node        = 12
+  Accelerators per node     = 1
+  OMP 1st level threads     = 8
+  OMP nested threading disabled or only 1 thread on the 2nd level
+
+  Precision used in this calculation, see definitions in the manual:
+  Base precision      = float
+  Full precision      = double
+
+  OpenMP target offload to accelerators build option is enabled
+  SYCL acceleration build option is enabled
+  Real build. QMC_COMPLEX=OFF
+  Timer build option is enabled. Current timer level is fine
+
+=================================================
+--- Memory usage report : when QMCPACK starts ---
+=================================================
+Available memory on node 0, free + buffers : 1035133 MiB
+Memory footprint by rank 0 on node 0       :     572 MiB
+Device memory allocated via OpenMP offload :       0 MiB
+Device memory allocated via SYCL allocator :       0 MiB
+Free memory on the default device          :   65475 MiB
+=================================================
+
+  Input XML = NiO-a256-dmc.xml
+
+  Project = qmc
+  date    = 2025-04-06 23:16:04 CDT
+  host    = x4111c5s5b0n0
+
+
+ Random Number
+ -------------
+  Offset for the random number seeds from input file (mod 1024): 2
+
+  Range of prime numbers to use as seeds over processors and threads = 7-541
+
+
+ Lattice
+ -------
+  Simulation cell radius   = 12.364886 bohr
+  Wigner-Seitz cell radius = 12.461113 bohr
+
+  Overwriting global supercell 
+  Long-range breakup parameters:
+    rc*kc = 15.000000; rc = 12.364886; kc = 1.213113; tol = 0.000300
+  KContainer initialised with cutoff 1.213113
+   # of K-shell  = 114
+   # of K points = 468
+
+  Lattice (bohr):      3.9405500889    -19.7027492523     15.7622003555
+                      23.6432991028      7.8811001778                 0
+                      -3.9405500889     19.7027492523     15.7622003555
+
+  Boundary Conditions:  p  p  p 
+
+  Volume (bohr^3) = 15664.2812500000
+
+  Reciprocal vectors without 2*pi.
+    g_1 =       0.0079303654     -0.0237910952      0.0317214578
+    g_2 =       0.0396518260      0.0079303654     -0.0000000001
+    g_3 =      -0.0079303654      0.0237910952      0.0317214578
+
+  Metric tensor in real-space.
+    h_1 = 652.1732177734 -62.1117401123 -155.2792968750 
+    h_2 = -62.1117401123 621.1173095703 62.1117401123 
+    h_3 = -155.2792968750 62.1117401123 652.1732177734 
+
+  Metric tensor in g-space.
+    h_1 = 0.0645534396 0.0049656504 0.0148969432 
+    h_2 = 0.0049656504 0.0645534471 -0.0049656504 
+    h_3 = 0.0148969432 -0.0049656504 0.0645534396 
+
+ Particle Set
+ ------------
+  Name: i   Offload : yes
+
+  All the species have the same mass 1.0000000000
+
+  Creating Structure Factor for periodic systems 1.2131127119
+  Particle set size: 256   Groups : 2
+
+
+ Particle Set
+ ------------
+  Name: e   Offload : yes
+
+  All the species have the same mass 1.0000000000
+
+  Creating Structure Factor for periodic systems 1.2131127119
+  Particle set size: 3072   Groups : 2
+
+
+ Many-body wavefunction
+ -------------------
+  Name: psi0   Tasking: no
+
+QMCPACK WARNING !!!!!!! Deprecated input style: creating SPO set inside determinantset. Support for this usage will soon be removed. SPO sets should be built outside using sposet_collection.
+  Created SPOSet builder named 'einspline' of type einspline
+
+   Single Slater determinant
+   -------------------------
+
+     Determinant
+     -----------
+      Name: updet   Spin group: 0   SPO name: updet
+
+QMCPACK WARNING !!!!!!! Deprecated input style: creating SPO set inside determinantset. Support for this usage will soon be removed. SPO sets should be built outside using sposet_collection.
+      Create a new SPO set updet
+
+     Single particle orbitals (SPO)
+     ------------------------------
+      Name: updet   Type: spline   Builder class name: EinsplineSetBuilder
+
+	  MIXED_PRECISION=1 Overwriting the einspline storage to single precision.
+  TileMatrix = 
+ [  0 -5  1
+    2  0  4
+    2  3 -3 ]
+  Reading 1536 orbitals from HDF5 file.
+  HDF5 orbital file version 2.1.0
+  Reading orbital file in ESHDF format.
+  ESHDF orbital file version 2.1.0
+  Lattice = 
+    [  3.940550  3.940550  7.881100
+       0.000000  3.940550 -3.940550
+       3.940550  0.000000 -3.940550 ]
+  SuperLattice = 
+    [  3.940550 -19.702750 15.762200
+      23.643300  7.881100  0.000000
+      -3.940550 19.702750 15.762200 ]
+
+bands=29, elecs=3072, spins=2, twists=64
+Atom type(0) = 8
+Atom type(1) = 8
+Atom type(2) = 28
+Atom type(3) = 28
+   Skip initialization of the density
+TIMER  EinsplineSetBuilder::ReadOrbitalInfo 0.0354434400
+TIMER  EinsplineSetBuilder::BroadcastOrbitalInfo 0.0003669650
+Found 1 distinct supercell twist based on 64 primitive cell k-points
+Super twist #0:  [   0.00000   0.00000   0.00000 ]
+QMCPACK WARNING twist attribute exists. twistnum attribute ignored. To prevent this message, remove twistnum from input.
+  Using supercell twist 0:  [   0.00000   0.00000   0.00000]
+Using 1 copies of twist angle [ 0.000,  0.000,  0.000]
+Using 2 copies of twist angle [ 0.000,  0.250,  0.250]
+Using 1 copies of twist angle [ 0.000,  0.500,  0.500]
+Using 2 copies of twist angle [ 0.062, -0.406, -0.031]
+Using 2 copies of twist angle [ 0.062, -0.156,  0.219]
+Using 2 copies of twist angle [ 0.062,  0.094,  0.469]
+Using 2 copies of twist angle [ 0.062,  0.344, -0.281]
+Using 2 copies of twist angle [ 0.125, -0.312,  0.438]
+Using 2 copies of twist angle [ 0.125, -0.062, -0.312]
+Using 2 copies of twist angle [ 0.125,  0.188, -0.062]
+Using 2 copies of twist angle [ 0.125,  0.438,  0.188]
+Using 2 copies of twist angle [ 0.188, -0.469, -0.344]
+Using 2 copies of twist angle [ 0.188, -0.219, -0.094]
+Using 2 copies of twist angle [ 0.188,  0.031,  0.156]
+Using 2 copies of twist angle [ 0.188,  0.281,  0.406]
+Using 2 copies of twist angle [ 0.250, -0.375,  0.125]
+Using 2 copies of twist angle [ 0.250, -0.125,  0.375]
+Using 2 copies of twist angle [ 0.250,  0.125, -0.375]
+Using 2 copies of twist angle [ 0.250,  0.375, -0.125]
+Using 2 copies of twist angle [ 0.312, -0.281, -0.406]
+Using 2 copies of twist angle [ 0.312, -0.031, -0.156]
+Using 2 copies of twist angle [ 0.312,  0.219,  0.094]
+Using 2 copies of twist angle [ 0.312,  0.469,  0.344]
+Using 2 copies of twist angle [ 0.375, -0.438, -0.188]
+Using 2 copies of twist angle [ 0.375, -0.188,  0.062]
+Using 2 copies of twist angle [ 0.375,  0.062,  0.312]
+Using 2 copies of twist angle [ 0.375,  0.312, -0.438]
+Using 2 copies of twist angle [ 0.438, -0.344,  0.281]
+Using 2 copies of twist angle [ 0.438, -0.094, -0.469]
+Using 2 copies of twist angle [ 0.438,  0.156, -0.219]
+Using 2 copies of twist angle [ 0.438,  0.406,  0.031]
+Using 1 copies of twist angle [ 0.500,  0.000,  0.000]
+Using 2 copies of twist angle [ 0.500,  0.250,  0.250]
+Using 1 copies of twist angle [ 0.500,  0.500,  0.500]
+Using complex splines.
+986 complex-valued orbitals supplied by h5 can be expanded up to 1856 SPOs.
+Sorting the bands now:
+  Occupying bands based on energy in mode "ground"
+We will read 816 distinct complex-valued orbitals from h5.
+    Using real valued spline SPOs with complex single precision storage (C2R).
+    Running OpenMP offload code path.
+    Running OpenMP offload code path.
+BandInfoGroup::selectBands bigspace has 986 distinct orbitals 
+BandInfoGroup::selectBands using distinct orbitals [0,816)
+  Number of distinct bands 816
+  First Band index 0
+  First SPO index 0
+  Size of SPOs 1536
+  ClassName = SplineC2ROMPTarget
+  Using complex einspline table
+NumDistinctOrbitals 816 numOrbs = 1536
+B-spline mesh factor is 0.9000000000
+B-spline mesh size is (112, 66, 66)
+Maxmimum number of Gvecs 36419
+MEMORY 3408 MB allocated for the coefficients in 3D spline orbital representation
+Start transforming plane waves to 3D B-Splines.
+  Time to gather the table = 16.3759074380
+  SplineSetReader initialize_spline_pio 19.2308574380 sec
+  Time to bcast the table = 1.9920445090
+Time spent in creating B-spline SPOs 22.0970140930 sec
+      Using rank-32 delayed update
+      Using walker batching.
+      Running on a GPU via SYCL acceleration and OpenMP offload.
+
+
+     Determinant
+     -----------
+      Name: downdet   Spin group: 1   SPO name: downdet
+
+QMCPACK WARNING !!!!!!! Deprecated input style: creating SPO set inside determinantset. Support for this usage will soon be removed. SPO sets should be built outside using sposet_collection.
+      Create a new SPO set downdet
+
+     Single particle orbitals (SPO)
+     ------------------------------
+      Name: downdet   Type: spline   Builder class name: EinsplineSetBuilder
+
+	  MIXED_PRECISION=1 Overwriting the einspline storage to single precision.
+986 complex-valued orbitals supplied by h5 can be expanded up to 1856 SPOs.
+Sorting the bands now:
+  Occupying bands based on energy in mode "ground"
+We will read 816 distinct complex-valued orbitals from h5.
+    Running OpenMP offload code path.
+BandInfoGroup::selectBands bigspace has 986 distinct orbitals 
+BandInfoGroup::selectBands using distinct orbitals [0,816)
+  Number of distinct bands 816
+  First Band index 0
+  First SPO index 0
+  Size of SPOs 1536
+  ClassName = SplineC2ROMPTarget
+  Using complex einspline table
+NumDistinctOrbitals 816 numOrbs = 1536
+B-spline mesh factor is 0.9000000000
+B-spline mesh size is (112, 66, 66)
+Maxmimum number of Gvecs 36419
+MEMORY 3408 MB allocated for the coefficients in 3D spline orbital representation
+Start transforming plane waves to 3D B-Splines.
+  Time to gather the table = 16.7066414530
+  SplineSetReader initialize_spline_pio 19.4946883420 sec
+  Time to bcast the table = 2.0872070190
+Time spent in creating B-spline SPOs 22.5135123520 sec
+      Using rank-32 delayed update
+      Using walker batching.
+      Running on a GPU via SYCL acceleration and OpenMP offload.
+
+  Added a fermionic WaveFunctionComponent SlaterDet
+
+   Jastrow
+   -------
+    Name: J2   Type: Two-Body   Function: Bspline
+
+    Running OpenMP offload code path.
+    Radial function for species: u - u
+     Number of parameters: 10
+     Cusp: -0.2500000000
+     Cutoff radius: 5.5727791786
+
+     Name                        Value Type Recompute Use Index
+     ---- ---------------------------- ---- --------- --- -----
+     uu_0                 2.862236e-01    1         1  ON     0
+     uu_1                 1.947737e-01    1         1  ON     1
+     uu_2                 1.319545e-01    1         1  ON     2
+     uu_3                 8.893394e-02    1         1  ON     3
+     uu_4                 5.695576e-02    1         1  ON     4
+     uu_5                 3.565959e-02    1         1  ON     5
+     uu_6                 2.206950e-02    1         1  ON     6
+     uu_7                 1.296086e-02    1         1  ON     7
+     uu_8                 6.601007e-03    1         1  ON     8
+     uu_9                 2.787144e-03    1         1  ON     9
+
+    Radial function for species: u - d
+     Number of parameters: 10
+     Cusp: -0.5
+     Cutoff radius: 5.57278
+
+     Name                        Value Type Recompute Use Index
+     ---- ---------------------------- ---- --------- --- -----
+     ud_0                 3.689310e-01    1         1  ON     0
+     ud_1                 2.226722e-01    1         1  ON     1
+     ud_2                 1.484297e-01    1         1  ON     2
+     ud_3                 9.617039e-02    1         1  ON     3
+     ud_4                 5.918787e-02    1         1  ON     4
+     ud_5                 3.660856e-02    1         1  ON     5
+     ud_6                 2.262412e-02    1         1  ON     6
+     ud_7                 1.322280e-02    1         1  ON     7
+     ud_8                 6.736329e-03    1         1  ON     8
+     ud_9                 2.871931e-03    1         1  ON     9
+
+
+   Jastrow
+   -------
+    Name: J1   Type: One-Body   Function: Bspline
+
+    Running OpenMP offload code path.
+    Radial function for element: O - e
+     Number of parameters: 10
+     Cusp: 0
+     Cutoff radius: 4.82617
+
+     Name                        Value Type Recompute Use Index
+     ---- ---------------------------- ---- --------- --- -----
+      O_0                -2.249113e-01    1         1  ON     0
+      O_1                -1.847495e-01    1         1  ON     1
+      O_2                -1.154814e-01    1         1  ON     2
+      O_3                -4.000123e-02    1         1  ON     3
+      O_4                 1.731711e-02    1         1  ON     4
+      O_5                 5.360132e-02    1         1  ON     5
+      O_6                 5.983041e-02    1         1  ON     6
+      O_7                 3.956000e-02    1         1  ON     7
+      O_8                 1.739980e-02    1         1  ON     8
+      O_9                 5.162164e-03    1         1  ON     9
+
+    Radial function for element: Ni - e
+     Number of parameters: 10
+     Cusp: 0
+     Cutoff radius: 4.82617
+
+     Name                        Value Type Recompute Use Index
+     ---- ---------------------------- ---- --------- --- -----
+     Ni_0                -1.644855e+00    1         1  ON     0
+     Ni_1                -1.470659e+00    1         1  ON     1
+     Ni_2                -1.078894e+00    1         1  ON     2
+     Ni_3                -6.878964e-01    1         1  ON     3
+     Ni_4                -3.907005e-01    1         1  ON     4
+     Ni_5                -1.962104e-01    1         1  ON     5
+     Ni_6                -8.512755e-02    1         1  ON     6
+     Ni_7                -2.752357e-02    1         1  ON     7
+     Ni_8                -4.017983e-03    1         1  ON     8
+     Ni_9                 7.665934e-04    1         1  ON     9
+
+  Adding psi0 TrialWaveFunction to the pool
+
+ Hamiltonian and observables
+ ---------------------------
+  Name: h0
+
+  QMCHamiltonian::addOperator Kinetic to H, physical Hamiltonian 
+
+   Pseudo Potential
+   ----------------
+    Name: PseudoPot   Wavefunction : psi0
+
+
+  Adding pseudopotential for Ni
+   Linear grid  ri=0 rf=10 npts = 10001
+    ECPComponentBuilder::buildSemiLocalAndLocal 
+QMCPACK WARNING Nrule was not determined from qmcpack input or pseudopotential file. Setting sensible default.
+    Assuming Hartree unit
+ l-local setting found in pseudopotential file and used.
+   Number of angular momentum channels 3
+   Maximum angular momentum channel (Lmax) 2
+   Creating a Linear Grid Rmax=0.802458
+  Using global grid with delta = 0.001
+   Making L=1 a local potential with a radial cutoff of 9.999
+  Quadrature Nrule: 4
+    Non-local pseudopotential parameters
+    Maximum angular momentum = 2
+    Number of non-local channels = 2
+       l(0)=0
+       l(1)=2
+    Cutoff radius = 0.803
+    Number of spherical integration grid points = 12
+    Spherical grid and weights: 
+                        1                 0                 0       0.08333333582
+                       -1   1.224646853e-16                 0       0.08333333582
+             0.4472135901      0.8944271803                 0       0.08333333582
+            -0.4472135901      0.7236068249      0.5257310867       0.08333333582
+             0.4472135901      0.2763932049      0.8506507874       0.08333333582
+            -0.4472135901     -0.2763932049      0.8506507874       0.08333333582
+             0.4472135901     -0.7236068249      0.5257310867       0.08333333582
+            -0.4472135901     -0.8944271803   1.095357398e-16       0.08333333582
+             0.4472135901     -0.7236068249     -0.5257310867       0.08333333582
+            -0.4472135901     -0.2763932049     -0.8506507874       0.08333333582
+             0.4472135901      0.2763932049     -0.8506507874       0.08333333582
+            -0.4472135901      0.7236068249     -0.5257310867       0.08333333582
+    Maximum cutoff radius 0.8029999733
+
+  Adding pseudopotential for O
+   Linear grid  ri=0 rf=10 npts = 10001
+    ECPComponentBuilder::buildSemiLocalAndLocal 
+QMCPACK WARNING Nrule was not determined from qmcpack input or pseudopotential file. Setting sensible default.
+    Assuming Hartree unit
+ l-local setting found in pseudopotential file and used.
+   Number of angular momentum channels 2
+   Maximum angular momentum channel (Lmax) 1
+   Creating a Linear Grid Rmax=0.927290976
+  Using global grid with delta = 0.001
+   Making L=0 a local potential with a radial cutoff of 9.998999311
+  Quadrature Nrule: 4
+    Non-local pseudopotential parameters
+    Maximum angular momentum = 1
+    Number of non-local channels = 1
+       l(0)=1
+    Cutoff radius = 0.9279999733
+    Number of spherical integration grid points = 12
+    Spherical grid and weights: 
+                        1                 0                 0       0.08333333582
+                       -1   1.224646853e-16                 0       0.08333333582
+             0.4472135901      0.8944271803                 0       0.08333333582
+            -0.4472135901      0.7236068249      0.5257310867       0.08333333582
+             0.4472135901      0.2763932049      0.8506507874       0.08333333582
+            -0.4472135901     -0.2763932049      0.8506507874       0.08333333582
+             0.4472135901     -0.7236068249      0.5257310867       0.08333333582
+            -0.4472135901     -0.8944271803   1.095357398e-16       0.08333333582
+             0.4472135901     -0.7236068249     -0.5257310867       0.08333333582
+            -0.4472135901     -0.2763932049     -0.8506507874       0.08333333582
+             0.4472135901      0.2763932049     -0.8506507874       0.08333333582
+            -0.4472135901      0.7236068249     -0.5257310867       0.08333333582
+    Maximum cutoff radius 0.9279999733
+
+  Creating CoulombHandler with the Esler Optimized Breakup. 
+  KContainer initialised with cutoff 7.5335145
+   # of K-shell  = 10842
+   # of K points = 113172
+
+  NUMBER OF OPT_BREAK KVECS = 30223364821
+ finding kc:  1.213112712 , 1.213112712
+  LRBreakp parameter Kc =1.213112712
+    Continuum approximation in k = [7.533514566,485.2450611)
+
+   LR Breakup chi^2 = 5.36114e-17
+   Constant of PBCAB 37766
+    CoulombPBCAB::initBreakup
+  Setting a linear grid=[0,12.365) number of grid points =1001
+  Rcut                12.365
+  Maximum K shell     113
+  Number of k vectors 468
+    CoulombPBCAB::add 
+ Setting a linear grid=[0,12.365) number of grid =10000
+    Creating the short-range pseudopotential for species 0
+    CoulombPBCAB::add 
+ Setting a linear grid=[0,12.365) number of grid =10000
+    Creating the short-range pseudopotential for species 1
+  QMCHamiltonian::addOperator LocalECP to H, physical Hamiltonian 
+
+  Using NonLocalECP potential 
+    Maximum grid on a sphere for NonLocalECPotential: 12
+    Using batched ratio computing in NonLocalECP
+  QMCHamiltonian::addOperator NonLocalECP to H, physical Hamiltonian 
+
+   Coulomb Potential
+   -----------------
+    Name: IonIon   Type: AA   PBC: yes
+
+    Running OpenMP offload code path.
+  Clone CoulombHandler. 
+   PBCAA self-interaction term -5673.1
+   PBCAA total constant -24556
+    CoulombPBCAA::initBreakup
+  Setting a linear grid=[0,12.365) number of grid points =1001
+Checking ion-ion Ewald energy against reference...
+  Check passed.
+  Maximum K shell 113
+  Number of k vectors 468
+  Fixed Coulomb potential for i
+    e-e Madelung Const. =-0.056912147
+    Vtot     =-15315.088
+  QMCHamiltonian::addOperator IonIon to H, physical Hamiltonian 
+QMCHamiltonian::addOperatorType added type coulomb named IonIon
+
+   Coulomb Potential
+   -----------------
+    Name: ElecElec   Type: AA   PBC: yes
+
+    Running OpenMP offload code path.
+  Clone CoulombHandler. 
+   PBCAA self-interaction term -378.20743
+   PBCAA total constant -19261.182
+    CoulombPBCAA::initBreakup
+  Setting a linear grid=[0,12.364886) number of grid points =1001
+  Maximum K shell 113
+  Number of k vectors 468
+  Fixed Coulomb potential for e
+    e-e Madelung Const. =-0.056912147
+    Vtot     =0
+  QMCHamiltonian::addOperator ElecElec to H, physical Hamiltonian 
+QMCHamiltonian::addOperatorType added type coulomb named ElecElec
+
+  QMCHamiltonian::add2WalkerProperty added
+    5 to P::PropertyList 
+    0 to P::Collectables 
+    starting Index of the observables in P::PropertyList = 9
+ParticleSetPool::randomize 1 ParticleSet.
+<init source="i" target="e">
+</init>
+  Initialization Execution time = 45.73 secs
+=========================================================
+ Summary of QMC systems 
+=========================================================
+ParticleSetPool has: 
+
+  ParticleSet 'e' contains 3072 particles :  u(1536) d(1536)
+
+    u  4.1878981590e+00  3.0217857361e+00  2.6839044094e+00
+    u  2.9773514271e+00  2.7960636616e+00  3.4436931610e+00
+    u  5.3226079941e+00  4.6552772522e+00  3.6884634495e+00
+    u  2.2519060135e+01  8.1428155899e+00  1.2894988060e+01
+    u  2.2208564758e+01  7.4180274010e+00  1.1361687660e+01
+    u  2.2856172562e+01  6.5589175224e+00  1.2163311005e+01
+    u  5.3419637680e+00 -5.5979895592e-01  8.3362150192e+00
+    u  2.6829760075e+00 -4.5678788424e-01  7.0478410721e+00
+    u  4.6570844650e+00  6.3074076176e-01  6.6268229485e+00
+    u  7.6067776680e+00  6.7434531450e-01  5.3385744095e+00
+    (... and 3062 more particle positions ...)
+
+  Distance table for similar particles (A-A):
+    source/target: e
+    Using structure-of-arrays (SoA) data layout and OpenMP offload
+    Distance computations use general periodic cell in 3D with corner image checks.
+
+  Distance table for dissimilar particles (A-B):
+    source: i  target: e
+    Using structure-of-arrays (SoA) data layout and OpenMP offload
+    Distance computations use general periodic cell in 3D with corner image checks.
+
+
+  ParticleSet 'i' contains 256 particles :  O(128) Ni(128)
+
+    O  3.9405500889e+00  3.9405498505e+00  3.9405500889e+00
+    O  2.9802322388e-08  2.3841857910e-07  1.1821650505e+01
+    O  3.9405498505e+00  2.9802322388e-07  7.8811001778e+00
+    O  7.8810997009e+00  2.3841857910e-07  3.9405500889e+00
+    O -2.2351741791e-08  3.9405498505e+00  7.8811001778e+00
+    O  3.9405500889e+00  3.9405498505e+00  1.9702751160e+01
+    O  7.8810997009e+00  3.9405500889e+00  1.5762200356e+01
+    O  1.1821649551e+01  3.9405500889e+00  1.1821650505e+01
+    O  3.9405500889e+00  7.8810997009e+00  1.5762200356e+01
+    O  7.8811006546e+00  7.8810997009e+00  1.1821650505e+01
+    (... and 246 more particle positions ...)
+
+  Distance table for similar particles (A-A):
+    source/target: i
+    Using structure-of-arrays (SoA) data layout and OpenMP offload
+    Distance computations use general periodic cell in 3D with corner image checks.
+
+
+  Hamiltonian h0
+  Kinetic         Kinetic energy
+  LocalECP        CoulombPBCAB potential source: i
+  NonLocalECP     NonLocalECPotential: i
+  IonIon          CoulombPBCAA potential: i_i
+  ElecElec        CoulombPBCAA potential: e_e
+
+
+========================================
+  Reading VMC driver XML input section
+========================================
+<estimator> nodes not contained in <estimators>...</estimators> is a deprecated input xml idiom
+  Random walking without drift
+ Legacy constructor adding a default LocalEnergyEstimator for the MainEstimator 
+  EstimatorManagerNew replaced its main estimator with LocalEnergy estimator.
+EstimatorManager setup for this section:
+  Main Estimator:  LocalEnergy
+
+=========================================================
+  Start VMCBatched
+  File Root qmc.s001
+=========================================================
+==============================================================
+--- Memory usage report : VMCBatched before initialization ---
+==============================================================
+Available memory on node 0, free + buffers :  950420 MiB
+Memory footprint by rank 0 on node 0       :    7542 MiB
+Device memory allocated via OpenMP offload :    6938 MiB
+Device memory allocated via SYCL allocator :       0 MiB
+Free memory on the default device          :   58408 MiB
+==============================================================
+VMCBatched Driver running with
+             total_walkers     = 4608
+             walkers_per_rank  = [384(x12)]
+             num_crowds        = 8
+  on rank 0, walkers_per_crowd = [48(x8)]
+
+                         steps = 1
+                        blocks = 2
+
+===================================================================
+--- Memory usage report : VMCBatched after initialLogEvaluation ---
+===================================================================
+Available memory on node 0, free + buffers :  138619 MiB
+Memory footprint by rank 0 on node 0       :   36597 MiB
+Device memory allocated via OpenMP offload :   53959 MiB
+Device memory allocated via SYCL allocator :       0 MiB
+Free memory on the default device          :   11070 MiB
+===================================================================
+VMC Warmup completed in 2.3590e+02 secs
+=====================================================
+--- Memory usage report : VMCBatched after Warmup ---
+=====================================================
+Available memory on node 0, free + buffers :  138228 MiB
+Memory footprint by rank 0 on node 0       :   37379 MiB
+Device memory allocated via OpenMP offload :   54253 MiB
+Device memory allocated via SYCL allocator :       0 MiB
+Free memory on the default device          :   10707 MiB
+=====================================================
+Completed block    1 of 2 average 50.41 secs/block after 396.9 secs
+Completed block    2 of 2 average 68.03 secs/block after 482.6 secs
+====================================================
+  End of a VMC section
+    QMC counter        = 1
+    time step          = 1
+    reference energy   = -23725
+    reference variance = 1022.89
+====================================================
+=============================================
+--- Memory usage report : VMCBatched ends ---
+=============================================
+Available memory on node 0, free + buffers :  138147 MiB
+Memory footprint by rank 0 on node 0       :   37379 MiB
+Device memory allocated via OpenMP offload :   54253 MiB
+Device memory allocated via SYCL allocator :       0 MiB
+Free memory on the default device          :   10707 MiB
+=============================================
+  Carry over 4608 walker configurations to the next QMC driver.
+  VMCBatched Execution time = 4.3197e+02 secs
+
+========================================
+  Reading VMC driver XML input section
+========================================
+<estimator> nodes not contained in <estimators>...</estimators> is a deprecated input xml idiom
+  Random walking with drift
+ Legacy constructor adding a default LocalEnergyEstimator for the MainEstimator 
+  EstimatorManagerNew replaced its main estimator with LocalEnergy estimator.
+EstimatorManager setup for this section:
+  Main Estimator:  LocalEnergy
+
+=========================================================
+  Start VMCBatched
+  File Root qmc.s002
+=========================================================
+==============================================================
+--- Memory usage report : VMCBatched before initialization ---
+==============================================================
+Available memory on node 0, free + buffers :  477185 MiB
+Memory footprint by rank 0 on node 0       :   37379 MiB
+Device memory allocated via OpenMP offload :    6938 MiB
+Device memory allocated via SYCL allocator :       0 MiB
+Free memory on the default device          :   58019 MiB
+==============================================================
+VMCBatched Driver running with
+             total_walkers     = 4608
+             walkers_per_rank  = [384(x12)]
+             num_crowds        = 8
+  on rank 0, walkers_per_crowd = [48(x8)]
+
+                         steps = 1
+                        blocks = 2
+
+===================================================================
+--- Memory usage report : VMCBatched after initialLogEvaluation ---
+===================================================================
+Available memory on node 0, free + buffers :  140500 MiB
+Memory footprint by rank 0 on node 0       :   37379 MiB
+Device memory allocated via OpenMP offload :   54230 MiB
+Device memory allocated via SYCL allocator :       0 MiB
+Free memory on the default device          :   10737 MiB
+===================================================================
+VMC Warmup completed in 2.6437e+02 secs
+=====================================================
+--- Memory usage report : VMCBatched after Warmup ---
+=====================================================
+Available memory on node 0, free + buffers :  139892 MiB
+Memory footprint by rank 0 on node 0       :   37379 MiB
+Device memory allocated via OpenMP offload :   54253 MiB
+Device memory allocated via SYCL allocator :       0 MiB
+Free memory on the default device          :   10709 MiB
+=====================================================
+Completed block    1 of 2 average 57.19 secs/block after 867.2 secs
+Completed block    2 of 2 average 76.39 secs/block after 962.7 secs
+====================================================
+  End of a VMC section
+    QMC counter        = 2
+    time step          = 1
+    reference energy   = -23732.5
+    reference variance = 794.8
+====================================================
+=============================================
+--- Memory usage report : VMCBatched ends ---
+=============================================
+Available memory on node 0, free + buffers :  139855 MiB
+Memory footprint by rank 0 on node 0       :   37379 MiB
+Device memory allocated via OpenMP offload :   54253 MiB
+Device memory allocated via SYCL allocator :       0 MiB
+Free memory on the default device          :   10709 MiB
+=============================================
+  Carry over 4608 walker configurations to the next QMC driver.
+  VMCBatched Execution time = 4.7957e+02 secs
+
+========================================
+  Reading DMC driver XML input section
+========================================
+<estimator> nodes not contained in <estimators>...</estimators> is a deprecated input xml idiom
+  Using Non-local T-moves v0, M. Casula, PRB 74, 161102(R) (2006)
+ Legacy constructor adding a default LocalEnergyEstimator for the MainEstimator 
+  EstimatorManagerNew replaced its main estimator with LocalEnergy estimator.
+EstimatorManager setup for this section:
+  Main Estimator:  LocalEnergy
+
+=========================================================
+  Start DMCBatched
+  File Root qmc.s003
+=========================================================
+==============================================================
+--- Memory usage report : DMCBatched before initialization ---
+==============================================================
+Available memory on node 0, free + buffers :  475822 MiB
+Memory footprint by rank 0 on node 0       :   37379 MiB
+Device memory allocated via OpenMP offload :    6938 MiB
+Device memory allocated via SYCL allocator :       0 MiB
+Free memory on the default device          :   57377 MiB
+==============================================================
+DMCBatched Driver running with
+             total_walkers     = 4608
+             walkers_per_rank  = [384(x12)]
+             num_crowds        = 8
+  on rank 0, walkers_per_crowd = [48(x8)]
+
+                         steps = 5
+                        blocks = 5
+
+  Creating the branching engine and walker controler
+    Reference energy is updated using the unlimited_history scheme
+  WalkerControl parameters 
+    maxCopy = 2
+    Max Walkers per MPI rank 769
+    Min Walkers per MPI rank 77
+    Using non-blocking send/recv
+    Disable branching for debugging as the user input request.
+  Fluctuating population
+  Persistent walkers are killed after 10 MC sweeps
+  BranchInterval = 1
+  Steps per block = 5
+  Number of blocks = 5
+
+  DMC Engine Initialization = 2.7114e-02 secs
+  START ALL OVER 
+  QMC counter             = -1
+  time step               = 1.0000e-03
+  effective time step     = 1.0000e-03
+  trial energy            = -2.3732e+04
+  reference energy        = -2.3732e+04
+  reference variance      = 8.3887e+02
+  Feedback                = 1.0000e+00
+  target walkers          = 4608
+  branching cutoff scheme = classic
+  branch cutoff, max      = 2.5000e+03 3.7500e+03
+  QMC Status (BranchMode) = 0000001101
+===================================================================
+--- Memory usage report : DMCBatched after initialLogEvaluation ---
+===================================================================
+Available memory on node 0, free + buffers :  139733 MiB
+Memory footprint by rank 0 on node 0       :   37379 MiB
+Device memory allocated via OpenMP offload :   54230 MiB
+Device memory allocated via SYCL allocator :       0 MiB
+Free memory on the default device          :   10735 MiB
+===================================================================
+Completed block    1 of 5 average 83.69 secs/block after 1100 secs
+Completed block    2 of 5 average 83.75 secs/block after 1184 secs
+Completed block    3 of 5 average 83.72 secs/block after 1268 secs
+Completed block    5 of 5 average 91.44 secs/block after 1474 secs
+====================================================
+  End of a DMC section
+    QMC counter                   = -1
+    time step                     = 0.001
+    effective time step           = 0.000998048
+    trial energy                  = -23740.2
+    reference energy              = -23740.4
+    reference variance            = 838.871
+    target walkers                = 4608
+    branch cutoff                 = 2500 3750
+    Feedback                      = 1
+    QMC Status (BranchMode)       = 0000001101
+====================================================
+=============================================
+--- Memory usage report : DMCBatched ends ---
+=============================================
+Available memory on node 0, free + buffers :  138119 MiB
+Memory footprint by rank 0 on node 0       :   37379 MiB
+Device memory allocated via OpenMP offload :   54337 MiB
+Device memory allocated via SYCL allocator :       0 MiB
+Free memory on the default device          :   10467 MiB
+=============================================
+  Carry over 4608 walker configurations to the next QMC driver.
+  DMCBatched Execution time = 5.1069e+02 secs
+  Total Execution time = 1.4240e+03 secs
+
+=========================================================
+  A new xml input file : qmc.s003.cont.xml
+
+Use --enable-timers=<value> command line option to increase or decrease level of timing information
+Stack timer profile
+Timer                                               Inclusive_time  Exclusive_time  Calls       Time_per_call
+Total                                               1469.7892     1.8047              1    1469.789210126
+  DMCBatched                                         510.6919     0.0162              1     510.691877297
+    DMCBatched::InitWalkers                           47.9799     2.7697              1      47.979945716
+      Hamiltonian:h0::evaluate                         3.2019     0.0000              1       3.201878704
+        Hamiltonian:ElecElec                           0.1470     0.0000              1       0.146971097
+          CoulombPBCAA::LongRange                      0.0001     0.0001             48       0.000002617
+          CoulombPBCAA::ShortRange                     0.1468     0.0001              1       0.146824373
+            CoulombPBCAA::offload                      0.1146     0.1146             24       0.004774362
+            DTAAOMPTarget::evaluate_e_e                0.0322     0.0127             24       0.001340180
+              DTAAOMPTarget::offload_e_e               0.0194     0.0194             24       0.000809580
+        Hamiltonian:IonIon                             0.0000     0.0000              1       0.000005939
+        Hamiltonian:Kinetic                            0.0007     0.0007              1       0.000731675
+        Hamiltonian:LocalECP                           0.7079     0.7079              1       0.707885041
+        Hamiltonian:NonLocalECP                        2.3463     0.1550              1       2.346274178
+          ParticleSet:none::update                     0.6543     0.0028           1475       0.000443622
+            DTABOMPTarget::evaluate_e_virtual          0.3580     0.0022           1475       0.000242740
+              DTABOMPTarget::offload_e_virtual         0.3559     0.3559           1475       0.000241269
+            DTABOMPTarget::evaluate_i_virtual          0.2935     0.0021           1475       0.000198954
+              DTABOMPTarget::offload_i_virtual         0.2914     0.2914           1475       0.000197553
+          WaveFunction:psi0::NLratio                   1.5369     0.0085           1475       0.001041978
+            J1OrbitalSoA:J1::NLratio                   0.4029     0.4029           1475       0.000273137
+            SlaterDet::NLratio                         0.6546     0.0028           1475       0.000443787
+              DiracDeterminantBatched::ratio           0.0006     0.0006           1475       0.000000421
+              DiracDeterminantBatched::spoval          0.6511     0.0303           1475       0.000441455
+                SplineC2ROMPTarget::offload            0.6209     0.6209           1475       0.000420942
+            TwoBodyJastrow:J2::NLratio                 0.4709     0.4709           1475       0.000319275
+          WaveFunction:psi0::preparegroup              0.0000     0.0000              2       0.000007361
+            J1OrbitalSoA:J1::preparegroup              0.0000     0.0000              2       0.000001134
+            SlaterDet::preparegroup                    0.0000     0.0000              2       0.000003485
+            TwoBodyJastrow:J2::preparegroup            0.0000     0.0000              2       0.000001010
+      ParticleSet:none::donePbyP                       0.0094     0.0000              1       0.009380483
+        StructFact::update_all_part                    0.0094     0.0094              1       0.009354587
+      ParticleSet:none::loadWalker                     1.7768     0.0021              1       1.776757655
+        DTAAOMPTarget::evaluate_e_e                    1.7572     1.7572             48       0.036608882
+        DTABOMPTarget::evaluate_i_e                    0.0174     0.0026              1       0.017400785
+          DTABOMPTarget::offload_i_e                   0.0148     0.0148              1       0.014824139
+      WaveFunction:psi0::recompute                    40.2223     0.0033              1      40.222257325
+        J1OrbitalSoA:J1::recompute                     0.3838     0.3838              1       0.383795519
+        SlaterDet::recompute                          38.3881     0.9071              1      38.388137454
+          DiracDeterminantBatched::H2D                 0.0859     0.0859              2       0.042955610
+          DiracDeterminantBatched::inverse            33.2785    33.2785              2      16.639262774
+          DiracDeterminantBatched::spovgl              4.1166     2.9400              2       2.058289604
+            SplineC2ROMPTarget::offload                1.1765     1.1765           3072       0.000382989
+        TwoBodyJastrow:J2::recompute                   1.4470     1.4470              1       1.447009262
+    DMCBatched::Production                           457.2271     0.0208              1     457.227099799
+      DMCBatched::BlockEndDataAggregation              0.0103     0.0103              5       0.002061322
+      DMCBatched::RunSteps                           457.1960     2.3699             25      18.287839672
+        DMCBatched::Buffer                            59.3748     0.0458             25       2.374992868
+          WaveFunction:psi0::buffer                   59.3290     0.0680             25       2.373160515
+            J1OrbitalSoA:J1::buffer                    0.0206     0.0206             25       0.000825289
+            SlaterDet::buffer                         59.2121    22.5479             25       2.368483772
+              DiracDeterminantBatched::H2D             0.0856     0.0856              2       0.042780315
+              DiracDeterminantBatched::inverse        33.5752    33.5752              2      16.787614096
+              DiracDeterminantBatched::spovgl          3.0034     1.6931              2       1.501693637
+                SplineC2ROMPTarget::offload            1.3103     1.3103           3072       0.000426531
+            TwoBodyJastrow:J2::buffer                  0.0283     0.0283             25       0.001133344
+        DMCBatched::Collectables                       0.0002     0.0002             25       0.000006468
+        DMCBatched::Estimators                         0.0000     0.0000             25       0.000001957
+        DMCBatched::Hamiltonian                       98.3015     0.0005             25       3.932058368
+          Hamiltonian:ElecElec                         2.4607     0.0006             25       0.098426508
+            CoulombPBCAA::LongRange                    0.0053     0.0053           1200       0.000004420
+            CoulombPBCAA::ShortRange                   2.4547     0.0025             25       0.098188500
+              CoulombPBCAA::offload                    2.1884     2.1884            600       0.003647354
+              DTAAOMPTarget::evaluate_e_e              0.2638     0.0001            600       0.000439684
+                DTAAOMPTarget::offload_e_e             0.2637     0.2637            600       0.000439447
+          Hamiltonian:IonIon                           0.0002     0.0002             25       0.000007655
+          Hamiltonian:Kinetic                          0.0181     0.0181             25       0.000722776
+          Hamiltonian:LocalECP                        15.2091    15.2091             25       0.608363819
+          Hamiltonian:NonLocalECP                     80.6129     4.3117             25       3.224516614
+            ParticleSet:none::update                  22.9074     0.0802          36985       0.000619370
+              DTABOMPTarget::evaluate_e_virtual       13.1708     0.0645          36985       0.000356112
+                DTABOMPTarget::offload_e_virtual      13.1064    13.1064          36985       0.000354369
+              DTABOMPTarget::evaluate_i_virtual        9.6564     0.0620          36985       0.000261088
+                DTABOMPTarget::offload_i_virtual       9.5943     9.5943          36985       0.000259411
+            WaveFunction:psi0::NLratio                53.3934     0.2090          36985       0.001443650
+              J1OrbitalSoA:J1::NLratio                15.6466    15.6466          36985       0.000423054
+              SlaterDet::NLratio                      20.5046     0.0749          36985       0.000554402
+                DiracDeterminantBatched::ratio         0.0173     0.0173          36985       0.000000467
+                DiracDeterminantBatched::spoval       20.4124     0.6467          36985       0.000551909
+                  SplineC2ROMPTarget::offload         19.7657    19.7657          36985       0.000534424
+              TwoBodyJastrow:J2::NLratio              17.0332    17.0332          36985       0.000460543
+            WaveFunction:psi0::preparegroup            0.0004     0.0001             50       0.000007667
+              J1OrbitalSoA:J1::preparegroup            0.0001     0.0001             50       0.000001106
+              SlaterDet::preparegroup                  0.0001     0.0001             50       0.000002909
+              TwoBodyJastrow:J2::preparegroup          0.0000     0.0000             50       0.000000980
+        DMCBatched::MovePbyP                         263.0041     0.3726             25      10.520162225
+          ParticleSet:none::acceptMove                22.6630    20.2895          76800       0.000295092
+            DTABOMPTarget::update_i_e                  2.3735     2.3735        3681994       0.000000645
+          ParticleSet:none::computeNewPosDT           33.0048     0.6331          76800       0.000429750
+            DTAAOMPTarget::move_e_e                   17.6942     0.0159          76800       0.000230393
+              DTAAOMPTarget::offload_e_e              17.6783    17.6783          76800       0.000230187
+            DTABOMPTarget::move_i_e                   14.3013    14.3013        3686400       0.000003879
+            PosOMPTarget::copyActivePos                0.3762     0.3762          76800       0.000004898
+          ParticleSet:none::donePbyP                   0.8587     0.0004             25       0.034348868
+            StructFact::update_all_part                0.8583     0.8583             25       0.034332391
+          WaveFunction:psi0::VGL                     139.7338     0.6580         153600       0.000909725
+            J1OrbitalSoA:J1::VGL                       6.5224     6.5224         153600       0.000042464
+            SlaterDet::VGL                           102.2031     0.1915         153600       0.000665385
+              DiracDeterminantBatched::ratio          55.6014    55.6014          76800       0.000723977
+              DiracDeterminantBatched::spovgl         46.4101     0.2687          76800       0.000604299
+                SplineC2ROMPTarget::offload           46.1414    46.1414          76800       0.000600800
+            TwoBodyJastrow:J2::VGL                    30.3502    30.3502         153600       0.000197593
+          WaveFunction:psi0::accept                   66.3708     0.1653          76825       0.000863922
+            J1OrbitalSoA:J1::accept                    0.1740     0.1740          76825       0.000002265
+            SlaterDet::accept                         16.7695     0.1027          76825       0.000218282
+              DiracDeterminantBatched::D2H             9.5141     9.5141             50       0.190282599
+              DiracDeterminantBatched::update          7.1527     7.1527          76850       0.000093073
+            TwoBodyJastrow:J2::accept                 49.2621    49.2621          76825       0.000641225
+          WaveFunction:psi0::preparegroup              0.0003     0.0001             50       0.000005281
+            J1OrbitalSoA:J1::preparegroup              0.0001     0.0001             50       0.000001033
+            SlaterDet::preparegroup                    0.0001     0.0001             50       0.000001639
+            TwoBodyJastrow:J2::preparegroup            0.0000     0.0000             50       0.000000747
+        DMCBatched::Resources                          0.1439     0.1439             25       0.005756395
+        DMCBatched::Step_begin_recompute               5.2918     0.0002             25       0.211671316
+          ParticleSet:none::loadWalker                 1.5833     0.0003             25       0.063332997
+            DTABOMPTarget::evaluate_i_e                1.5831     0.0320             25       0.063322608
+              DTABOMPTarget::offload_i_e               1.5510     1.5510             25       0.062041969
+          WaveFunction:psi0::recompute                 3.7082     0.0001             25       0.148329195
+            J1OrbitalSoA:J1::recompute                 0.0000     0.0000             25       0.000001251
+            SlaterDet::recompute                       0.0004     0.0004             25       0.000015143
+            TwoBodyJastrow:J2::recompute               3.7077     3.7077             25       0.148309277
+        DMCBatched::Tmove                             19.9616     0.1398             25       0.798464591
+          ParticleSet:none::acceptMove                 0.1718     0.0030           1039       0.000165342
+            DTAAOMPTarget::update_e_e                  0.1681     0.1681           1039       0.000161789
+            DTABOMPTarget::update_i_e                  0.0007     0.0007           1039       0.000000673
+          ParticleSet:none::computeNewPosDT            0.0636     0.0019           1039       0.000061219
+            DTAAOMPTarget::move_e_e                    0.0544     0.0544           1039       0.000052398
+            DTABOMPTarget::move_i_e                    0.0072     0.0072           1039       0.000006967
+          ParticleSet:none::donePbyP                   0.0117     0.0117           1039       0.000011287
+          WaveFunction:psi0::VGL                       0.5991     0.0024           1039       0.000576566
+            J1OrbitalSoA:J1::VGL                       0.0037     0.0037           1039       0.000003543
+            SlaterDet::VGL                             0.5775     0.0022           1039       0.000555811
+              DiracDeterminantBatched::ratio           0.0063     0.0063           1039       0.000006033
+              DiracDeterminantBatched::spovgl          0.5690     0.0554           1039       0.000547640
+                SplineC2ROMPTarget::offload            0.5136     0.5136           1039       0.000494340
+            TwoBodyJastrow:J2::VGL                     0.0155     0.0155           1039       0.000014912
+          WaveFunction:psi0::accept                    2.9017     0.0043           2078       0.001396404
+            J1OrbitalSoA:J1::accept                    0.0005     0.0005           2078       0.000000240
+            SlaterDet::accept                          2.8732     0.0022           2078       0.001382688
+              DiracDeterminantBatched::update          2.8711     2.8711           3117       0.000921100
+            TwoBodyJastrow:J2::accept                  0.0237     0.0237           2078       0.000011406
+          WaveFunction:psi0::buffer                   16.0713     0.0449             25       0.642850517
+            J1OrbitalSoA:J1::buffer                    0.0179     0.0179             25       0.000714080
+            SlaterDet::buffer                         15.9834    15.9834             25       0.639336720
+            TwoBodyJastrow:J2::buffer                  0.0250     0.0250             25       0.001001927
+          WaveFunction:psi0::preparegroup              0.0027     0.0017           1039       0.000002561
+            J1OrbitalSoA:J1::preparegroup              0.0002     0.0002           1039       0.000000225
+            SlaterDet::preparegroup                    0.0005     0.0005           1039       0.000000498
+            TwoBodyJastrow:J2::preparegroup            0.0002     0.0002           1039       0.000000207
+        WalkerControl::branch                          8.7483     0.0001             25       0.349931326
+          WalkerControl::copyWalkers                   0.0000     0.0000             25       0.000001958
+          WalkerControl::loadbalance                   0.0005     0.0005             25       0.000018638
+          WalkerControl::pre-loadbalance               8.7477     0.0137             25       0.349907586
+            WalkerControl::allreduce                   8.7340     8.7340             25       0.349358804
+    DMCBatched::Startup                                5.4686     0.0338              1       5.468625413
+      DMCBatched::CreateWalkers                        5.4349     5.4349              1       5.434857930
+  Startup                                             45.7596     0.5833              1      45.759578519
+    CoulombPBCAA::LongRange                            0.0000     0.0000              1       0.000004166
+    CoulombPBCAA::ShortRange                           0.0001     0.0001              1       0.000077791
+    EwaldRef                                           0.1379     0.0000              1       0.137861311
+      EwaldSum                                         0.1378     0.1378              1       0.137815811
+      MadelungSum                                      0.0000     0.0000              1       0.000041255
+    ParticleSet:none::update                           0.0764     0.0047              5       0.015288027
+      DTAAOMPTarget::evaluate_e_e                      0.0622     0.0622              2       0.031086286
+      DTAAOMPTarget::evaluate_i_i                      0.0008     0.0008              3       0.000250484
+      DTABOMPTarget::evaluate_i_e                      0.0022     0.0001              2       0.001093852
+        DTABOMPTarget::offload_i_e                     0.0021     0.0021              2       0.001038722
+      StructFact::update_all_part                      0.0066     0.0066              5       0.001318701
+    einspline::CreateSPOSetFromXML                    44.9619    44.9616              2      22.480925036
+      ParticleSet:none::update                         0.0002     0.0000              1       0.000239700
+        DTAAOMPTarget::evaluate_i_i                    0.0002     0.0002              1       0.000232546
+  VMCBatched                                         911.5331     0.0277              2     455.766539729
+    VMCBatched::InitWalkers                           92.0831     3.2510              2      46.041565581
+      Hamiltonian:h0::evaluate                         3.7513     0.0000              2       1.875638179
+        Hamiltonian:ElecElec                           0.2924     0.0001              2       0.146179176
+          CoulombPBCAA::LongRange                      0.0003     0.0003             96       0.000003028
+          CoulombPBCAA::ShortRange                     0.2920     0.0003              2       0.146008101
+            CoulombPBCAA::offload                      0.2407     0.2407             48       0.005014748
+            DTAAOMPTarget::evaluate_e_e                0.0510     0.0248             48       0.001063351
+              DTAAOMPTarget::offload_e_e               0.0263     0.0263             48       0.000546946
+        Hamiltonian:IonIon                             0.0000     0.0000              2       0.000007786
+        Hamiltonian:Kinetic                            0.0013     0.0013              2       0.000664544
+        Hamiltonian:LocalECP                           1.5423     1.5423              2       0.771160422
+        Hamiltonian:NonLocalECP                        1.9152     0.2306              2       0.957612711
+          ParticleSet:none::update                     0.4703     0.0027           1386       0.000339337
+            DTABOMPTarget::evaluate_e_virtual          0.2698     0.0022           1386       0.000194652
+              DTABOMPTarget::offload_e_virtual         0.2676     0.2676           1386       0.000193040
+            DTABOMPTarget::evaluate_i_virtual          0.1979     0.0021           1386       0.000142750
+              DTABOMPTarget::offload_i_virtual         0.1958     0.1958           1386       0.000141237
+          WaveFunction:psi0::NLratio                   1.2142     0.0078           1386       0.000876082
+            J1OrbitalSoA:J1::NLratio                   0.2909     0.2909           1386       0.000209854
+            SlaterDet::NLratio                         0.5634     0.0026           1386       0.000406478
+              DiracDeterminantBatched::ratio           0.0006     0.0006           1386       0.000000449
+              DiracDeterminantBatched::spoval          0.5602     0.0316           1386       0.000404165
+                SplineC2ROMPTarget::offload            0.5286     0.5286           1386       0.000381382
+            TwoBodyJastrow:J2::NLratio                 0.3522     0.3522           1386       0.000254140
+          WaveFunction:psi0::preparegroup              0.0000     0.0000              4       0.000006384
+            J1OrbitalSoA:J1::preparegroup              0.0000     0.0000              4       0.000001053
+            SlaterDet::preparegroup                    0.0000     0.0000              4       0.000002873
+            TwoBodyJastrow:J2::preparegroup            0.0000     0.0000              4       0.000001004
+      ParticleSet:none::donePbyP                       0.1101     0.0000              2       0.055039534
+        StructFact::update_all_part                    0.1100     0.1100              2       0.055016745
+      ParticleSet:none::loadWalker                     4.0626     0.0200              2       2.031289540
+        DTAAOMPTarget::evaluate_e_e                    3.8960     3.8960             96       0.040583509
+        DTABOMPTarget::evaluate_i_e                    0.1466     0.0060              2       0.073283957
+          DTABOMPTarget::offload_i_e                   0.1405     0.1405              2       0.070272572
+      WaveFunction:psi0::recompute                    80.9082     0.0091              2      40.454113995
+        J1OrbitalSoA:J1::recompute                     0.7301     0.7301              2       0.365066139
+        SlaterDet::recompute                          77.6440     1.8537              2      38.822000910
+          DiracDeterminantBatched::H2D                 0.1756     0.1756              4       0.043890355
+          DiracDeterminantBatched::inverse            67.8936    67.8936              4      16.973409322
+          DiracDeterminantBatched::spovgl              7.7211     5.9144              4       1.930287346
+            SplineC2ROMPTarget::offload                1.8067     1.8067           6144       0.000294066
+        TwoBodyJastrow:J2::recompute                   2.5250     2.5250              2       1.262519495
+    VMCBatched::Production                           806.4955    17.3941              2     403.247767977
+      VMCBatched::BlockEndDataAggregation              9.3775     9.3775              4       2.344372564
+      VMCBatched::RunSteps                           779.7239     2.0344             14      55.694564690
+        VMCBatched::Buffer                            93.6239     0.0268             14       6.687424431
+          WaveFunction:psi0::buffer                   93.5972     0.0311             14       6.685512816
+            J1OrbitalSoA:J1::buffer                    0.0123     0.0123             14       0.000880816
+            SlaterDet::buffer                         93.5370     9.2320             14       6.681215412
+              DiracDeterminantBatched::H2D             0.1681     0.1681              4       0.042013091
+              DiracDeterminantBatched::inverse        66.8587    66.8587              4      16.714665030
+              DiracDeterminantBatched::spovgl         17.2783    11.2854             16       1.079894455
+                SplineC2ROMPTarget::offload            5.9929     5.9929          24576       0.000243853
+            TwoBodyJastrow:J2::buffer                  0.0167     0.0167             14       0.001193897
+        VMCBatched::Collectables                       0.0001     0.0001             14       0.000004570
+        VMCBatched::Estimators                         0.0000     0.0000              4       0.000001652
+        VMCBatched::Hamiltonian                       49.1482     0.0003             14       3.510582225
+          Hamiltonian:h0::evaluate                    49.1478     0.0001             14       3.510560062
+            Hamiltonian:ElecElec                       1.2011     0.0003             14       0.085795513
+              CoulombPBCAA::LongRange                  0.0022     0.0022            672       0.000003286
+              CoulombPBCAA::ShortRange                 1.1986     0.0016             14       0.085617438
+                CoulombPBCAA::offload                  1.0941     1.0941            336       0.003256334
+                DTAAOMPTarget::evaluate_e_e            0.1029     0.0001            336       0.000306317
+                  DTAAOMPTarget::offload_e_e           0.1028     0.1028            336       0.000306059
+            Hamiltonian:IonIon                         0.0001     0.0001             14       0.000007471
+            Hamiltonian:Kinetic                        0.0099     0.0099             14       0.000710492
+            Hamiltonian:LocalECP                       9.3378     9.3378             14       0.666989106
+            Hamiltonian:NonLocalECP                   38.5987     2.6746             14       2.757047269
+              ParticleSet:none::update                10.4374     0.0452          17972       0.000580757
+                DTABOMPTarget::evaluate_e_virtual      5.9587     0.0367          17972       0.000331555
+                  DTABOMPTarget::offload_e_virtual     5.9220     5.9220          17972       0.000329511
+                DTABOMPTarget::evaluate_i_virtual      4.4334     0.0349          17972       0.000246685
+                  DTABOMPTarget::offload_i_virtual     4.3985     4.3985          17972       0.000244741
+              WaveFunction:psi0::NLratio              25.4864     0.1229          17972       0.001418118
+                J1OrbitalSoA:J1::NLratio               7.0536     7.0536          17972       0.000392478
+                SlaterDet::NLratio                     9.7689     0.0394          17972       0.000543563
+                  DiracDeterminantBatched::ratio       0.0104     0.0104          17972       0.000000581
+                  DiracDeterminantBatched::spoval      9.7191     0.3795          17972       0.000540790
+                    SplineC2ROMPTarget::offload        9.3396     9.3396          17972       0.000519675
+                TwoBodyJastrow:J2::NLratio             8.5410     8.5410          17972       0.000475240
+              WaveFunction:psi0::preparegroup          0.0003     0.0001             28       0.000009703
+                J1OrbitalSoA:J1::preparegroup          0.0000     0.0000             28       0.000001493
+                SlaterDet::preparegroup                0.0001     0.0001             28       0.000004669
+                TwoBodyJastrow:J2::preparegroup        0.0000     0.0000             28       0.000001131
+        VMCBatched::MovePbyP                         634.8686     2.1167             14      45.347756827
+          ParticleSet:none::acceptMove                46.0366    44.4039         215040       0.000214084
+            DTABOMPTarget::update_i_e                  1.6327     1.6327        2435169       0.000000670
+          ParticleSet:none::computeNewPosDT           84.3012     1.6281         215040       0.000392026
+            DTAAOMPTarget::move_e_e                   41.2785     0.0434         215040       0.000191957
+              DTAAOMPTarget::offload_e_e              41.2351    41.2351         215040       0.000191756
+            DTABOMPTarget::move_i_e                   40.4132    40.4132       10321920       0.000003915
+            PosOMPTarget::copyActivePos                0.9814     0.9814         215040       0.000004564
+          ParticleSet:none::donePbyP                   0.0906     0.0001             14       0.006472381
+            StructFact::update_all_part                0.0905     0.0905             14       0.006465458
+          WaveFunction:psi0::V                       157.2858     0.3317         107520       0.001462851
+            J1OrbitalSoA:J1::V                         1.3514     1.3514         107520       0.000012569
+            SlaterDet::V                             117.7380     0.1438         107520       0.001095034
+              DiracDeterminantBatched::spoval        117.5942    62.7820         107520       0.001093696
+                SplineC2ROMPTarget::offload           54.8122    54.8122         107520       0.000509786
+            TwoBodyJastrow:J2::V                      37.8646    37.8646         107520       0.000352164
+          WaveFunction:psi0::VGL                     192.4200     0.9395         215040       0.000894810
+            J1OrbitalSoA:J1::VGL                       9.1616     9.1616         215040       0.000042604
+            SlaterDet::VGL                           141.2022     0.2559         215040       0.000656632
+              DiracDeterminantBatched::ratio          76.8674    76.8674         107520       0.000714913
+              DiracDeterminantBatched::spovgl         64.0788     0.3212         107520       0.000595971
+                SplineC2ROMPTarget::offload           63.7576    63.7576         107520       0.000592984
+            TwoBodyJastrow:J2::VGL                    41.1167    41.1167         215040       0.000191205
+          WaveFunction:psi0::accept                  152.6170     0.5023         215110       0.000709484
+            J1OrbitalSoA:J1::accept                    2.4242     2.4242         215110       0.000011269
+            SlaterDet::accept                         27.4283     0.3648         215110       0.000127508
+              DiracDeterminantBatched::D2H             6.8485     6.8485            140       0.048918059
+              DiracDeterminantBatched::update         20.2149    20.2149         215180       0.000093944
+            TwoBodyJastrow:J2::accept                122.2623   122.2623         215110       0.000568371
+          WaveFunction:psi0::preparegroup              0.0007     0.0003            140       0.000005183
+            J1OrbitalSoA:J1::preparegroup              0.0001     0.0001            140       0.000000646
+            SlaterDet::preparegroup                    0.0003     0.0003            140       0.000001964
+            TwoBodyJastrow:J2::preparegroup            0.0001     0.0001            140       0.000000723
+        VMCBatched::Resources                          0.0487     0.0487             14       0.003478491
+    VMCBatched::Startup                               12.9267     0.0175              2       6.463350079
+      VMCBatched::CreateWalkers                       12.9092    12.9092              2       6.454587804
+
+QMCPACK execution completed successfully

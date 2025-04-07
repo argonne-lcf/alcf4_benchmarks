@@ -1,0 +1,60 @@
+#!/bin/bash
+#PBS -A catalyst
+#PBS -l walltime=90:00
+#PBS -l filesystems=home
+
+# The rest is an example of how an MPI job might be set up
+echo Working directory is $PBS_O_WORKDIR
+cd $PBS_O_WORKDIR
+
+echo Jobid: $PBS_JOBID
+echo Running on host `hostname`
+echo Running on nodes `cat $PBS_NODEFILE`
+
+for module_name in oneapi/release oneapi/eng-compiler
+do
+  if module is-loaded $module_name ; then module unload $module_name; fi
+done
+
+module load oneapi/eng-compiler/2024.07.30.002
+module load hdf5/1.14.3
+module list
+
+export MPIR_CVAR_CH4_XPMEM_ENABLE=0
+export MPIR_CVAR_ENABLE_GPU=0
+unset MPIR_CVAR_CH4_COLL_SELECTION_TUNING_JSON_FILE
+unset MPIR_CVAR_COLL_SELECTION_TUNING_JSON_FILE
+unset MPIR_CVAR_CH4_POSIX_COLL_SELECTION_TUNING_JSON_FILE
+export FI_CXI_DEFAULT_CQ_SIZE=131072
+export FI_CXI_CQ_FILL_PERCENT=20
+
+export LIBOMP_USE_HIDDEN_HELPER_TASK=0
+export ZES_ENABLE_SYSMAN=1
+#export UR_L0_SERIALIZE=2
+#export LIBOMPTARGET_LEVEL_ZERO_COMMAND_MODE=sync
+#export LIBOMPTARGET_DEBUG=1
+
+#export ZE_AFFINITY_MASK=0.0 if running on 1 tile only
+export ZE_FLAT_DEVICE_HIERARCHY=COMPOSITE
+#export NEOReadDebugKeys=1
+#export EnableRecoverablePageFaults=0
+#export SplitBcsCopy=0
+#export PrintDebugSettings=1
+
+NNODES=`wc -l < $PBS_NODEFILE`
+NRANKS=12          # Number of MPI ranks per node
+NDEPTH=8          # Number of hardware threads per rank, spacing between MPI ranks on a node
+
+NTOTRANKS=$(( NNODES * NRANKS ))
+echo "NUM_NODES=${NNODES}  TOTAL_RANKS=${NTOTRANKS}  RANKS_PER_NODE=${NRANKS}  THREADS_PER_RANK=${OMP_NUM_THREADS}"
+cat /sys/module/i915/version
+
+exe_bin=/soft/applications/qmcpack/release-v4.0.0/build_aurora_icpx20240629_gpu_real_MP/bin
+ldd $exe_bin/qmcpack >& ldd.out
+
+export OMP_NUM_THREADS=8
+CPU_BIND=list:1-8:9-16:17-24:25-32:33-40:41-48:53-60:61-68:69-76:77-84:85-92:93-100
+CPU_BIND_VERBOSE=verbose,$CPU_BIND
+
+mpiexec -np ${NRANKS} -ppn ${NRANKS} -d ${NDEPTH} --cpu-bind $CPU_BIND_VERBOSE gpu_tile_compact.sh $exe_bin/qmc-check-affinity >& affinity.out
+mpiexec -np ${NTOTRANKS} -ppn ${NRANKS} -d ${NDEPTH} --cpu-bind $CPU_BIND gpu_tile_compact.sh $exe_bin/qmcpack --enable-timers=fine NiO-a256-dmc.xml | tee NiO-a256-dmc.out
