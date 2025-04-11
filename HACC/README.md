@@ -33,15 +33,17 @@ The ALCF4 HACC benchmark source code can also be obtained directly from the publ
 
 ### FOM
 
-The reported figure of merit is calculated as the total number of particles divided by the run time.
-```
-FOM = (np*np*np) / time
-```
+The reported figure of merit is calculated as the total number of particles (np) divided by the run time.
+
+$$
+FOM = \frac{np \times np \times np}{time}
+$$
+
 The FOM must be reported for `nstep=3` and `nsub=5`.
 
 ### Software prerequisites
 
-* FFTW 
+* FFTW (on Aurora Intel® Math Kernel Library FFTW is used)
 
 ### Building HACC
 
@@ -72,19 +74,9 @@ The results for 512 nodes of Aurora using np=6912.
 ```
 ACCUMULATED STATS
 step   max  1.835e+02 s  avg  1.817e+02 s  min  1.800e+02 s
-calc   max  2.965e+01 s  avg  2.299e+01 s  min  1.449e+01 s
-build  max  4.744e+01 s  avg  2.110e+01 s  min  1.733e+01 s
-srt    max  1.320e+01 s  avg  1.065e+01 s  min  8.569e+00 s
-t_f1   max  6.265e+00 s  avg  4.744e+00 s  min  3.347e+00 s
-t_f2   max  1.511e+01 s  avg  1.239e+01 s  min  8.989e+00 s
-t_b1   max  2.112e+01 s  avg  1.945e+01 s  min  1.782e+01 s
-t_b2   max  5.428e+01 s  avg  5.250e+01 s  min  5.094e+01 s
-t_sub  max  7.941e+01 s  avg  5.741e+01 s  min  4.566e+01 s
-t_s1   max  4.200e+01 s  avg  3.045e+01 s  min  8.344e+00 s
-t_s2   max  0.000e+00 s  avg  0.000e+00 s  min  0.000e+00 s
-t_a1   max  2.638e+00 s  avg  1.595e+00 s  min  7.542e-01 s
-t_a2   max  6.105e+00 s  avg  3.077e+00 s  min  6.252e-01 s
 ```
 
-FOM = (6912*6912*6912) / 1.835e+02 = 1799596417.046
+$$
+FOM = \frac{6912 \times 6912 \times 6912}{1.835 \times 10^2} \approx 1.799596417 \times 10^9
+$$
 
