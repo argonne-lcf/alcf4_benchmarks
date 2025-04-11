@@ -62,7 +62,7 @@ More info about how to run QMCPACK efficiently can be found at https://qmcpack.r
 Walker count scanning is a needed step to maximize accelerator performance.
 On Aurora, runs with 128, 256, 384 walkers were completed but 512-walker failed due to Out-of-Memory on GPUs.
 
-| Walker count | Node count | Single node FOM |
+| Walker count | Node count | FOM |
 | --- | --- | --- |
 | 128 |   1 | 160.9  |
 | 256 |   1 | 224.6  |
