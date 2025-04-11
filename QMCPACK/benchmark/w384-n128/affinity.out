@@ -1,0 +1,111 @@
+cpubind:list x4603c7s6b0n0 pid 32861 rank 0 0: mask 0x1fe
+cpubind:list x4603c7s6b0n0 pid 32862 rank 1 1: mask 0x1fe00
+cpubind:list x4603c7s6b0n0 pid 32863 rank 2 2: mask 0x1fe0000
+cpubind:list x4603c7s6b0n0 pid 32864 rank 3 3: mask 0x1fe000000
+cpubind:list x4603c7s6b0n0 pid 32865 rank 4 4: mask 0x1fe00000000
+cpubind:list x4603c7s6b0n0 pid 32866 rank 5 5: mask 0x1fe0000000000
+cpubind:list x4603c7s6b0n0 pid 32867 rank 6 6: mask 0x1fe0000000000000
+cpubind:list x4603c7s6b0n0 pid 32868 rank 7 7: mask 0x1fe000000000000000
+cpubind:list x4603c7s6b0n0 pid 32869 rank 8 8: mask 0x1fe00000000000000000
+cpubind:list x4603c7s6b0n0 pid 32870 rank 9 9: mask 0x1fe0000000000000000000
+cpubind:list x4603c7s6b0n0 pid 32871 rank 10 10: mask 0x1fe000000000000000000000
+cpubind:list x4603c7s6b0n0 pid 32872 rank 11 11: mask 0x1fe00000000000000000000000
+OpenMP OMP_MAX_ACTIVE_LEVELS = 1
+OpenMP enables 8 1st level threads, and 1 2nd level threads.
+
+MPI rank 11 L1 tid 0 L2 tid 0 is placed on Core ID 100
+MPI rank 11 L1 tid 1 L2 tid 0 is placed on Core ID 97
+MPI rank 11 L1 tid 2 L2 tid 0 is placed on Core ID 96
+MPI rank 11 L1 tid 3 L2 tid 0 is placed on Core ID 95
+MPI rank 11 L1 tid 4 L2 tid 0 is placed on Core ID 94
+MPI rank 11 L1 tid 5 L2 tid 0 is placed on Core ID 99
+MPI rank 11 L1 tid 6 L2 tid 0 is placed on Core ID 98
+MPI rank 11 L1 tid 7 L2 tid 0 is placed on Core ID 93
+MPI rank 1 L1 tid 0 L2 tid 0 is placed on Core ID 16
+MPI rank 1 L1 tid 1 L2 tid 0 is placed on Core ID 13
+MPI rank 1 L1 tid 2 L2 tid 0 is placed on Core ID 12
+MPI rank 1 L1 tid 3 L2 tid 0 is placed on Core ID 11
+MPI rank 1 L1 tid 4 L2 tid 0 is placed on Core ID 10
+MPI rank 1 L1 tid 5 L2 tid 0 is placed on Core ID 15
+MPI rank 1 L1 tid 6 L2 tid 0 is placed on Core ID 14
+MPI rank 1 L1 tid 7 L2 tid 0 is placed on Core ID 9
+MPI rank 6 L1 tid 0 L2 tid 0 is placed on Core ID 60
+MPI rank 6 L1 tid 1 L2 tid 0 is placed on Core ID 53
+MPI rank 6 L1 tid 2 L2 tid 0 is placed on Core ID 56
+MPI rank 6 L1 tid 3 L2 tid 0 is placed on Core ID 55
+MPI rank 6 L1 tid 4 L2 tid 0 is placed on Core ID 54
+MPI rank 6 L1 tid 5 L2 tid 0 is placed on Core ID 59
+MPI rank 6 L1 tid 6 L2 tid 0 is placed on Core ID 58
+MPI rank 6 L1 tid 7 L2 tid 0 is placed on Core ID 57
+MPI rank 7 L1 tid 0 L2 tid 0 is placed on Core ID 68
+MPI rank 7 L1 tid 1 L2 tid 0 is placed on Core ID 65
+MPI rank 7 L1 tid 2 L2 tid 0 is placed on Core ID 64
+MPI rank 7 L1 tid 3 L2 tid 0 is placed on Core ID 63
+MPI rank 7 L1 tid 4 L2 tid 0 is placed on Core ID 62
+MPI rank 7 L1 tid 5 L2 tid 0 is placed on Core ID 67
+MPI rank 7 L1 tid 6 L2 tid 0 is placed on Core ID 66
+MPI rank 7 L1 tid 7 L2 tid 0 is placed on Core ID 61
+MPI rank 10 L1 tid 0 L2 tid 0 is placed on Core ID 92
+MPI rank 10 L1 tid 1 L2 tid 0 is placed on Core ID 89
+MPI rank 10 L1 tid 2 L2 tid 0 is placed on Core ID 88
+MPI rank 10 L1 tid 3 L2 tid 0 is placed on Core ID 87
+MPI rank 10 L1 tid 4 L2 tid 0 is placed on Core ID 86
+MPI rank 10 L1 tid 5 L2 tid 0 is placed on Core ID 91
+MPI rank 10 L1 tid 6 L2 tid 0 is placed on Core ID 90
+MPI rank 10 L1 tid 7 L2 tid 0 is placed on Core ID 85
+MPI rank 0 L1 tid 0 L2 tid 0 is placed on Core ID 8
+MPI rank 0 L1 tid 1 L2 tid 0 is placed on Core ID 4
+MPI rank 0 L1 tid 2 L2 tid 0 is placed on Core ID 1
+MPI rank 0 L1 tid 3 L2 tid 0 is placed on Core ID 3
+MPI rank 0 L1 tid 4 L2 tid 0 is placed on Core ID 2
+MPI rank 0 L1 tid 5 L2 tid 0 is placed on Core ID 7
+MPI rank 0 L1 tid 6 L2 tid 0 is placed on Core ID 6
+MPI rank 0 L1 tid 7 L2 tid 0 is placed on Core ID 5
+MPI rank 3 L1 tid 0 L2 tid 0 is placed on Core ID 32
+MPI rank 3 L1 tid 1 L2 tid 0 is placed on Core ID 29
+MPI rank 3 L1 tid 2 L2 tid 0 is placed on Core ID 28
+MPI rank 3 L1 tid 3 L2 tid 0 is placed on Core ID 27
+MPI rank 3 L1 tid 4 L2 tid 0 is placed on Core ID 26
+MPI rank 3 L1 tid 5 L2 tid 0 is placed on Core ID 31
+MPI rank 3 L1 tid 6 L2 tid 0 is placed on Core ID 30
+MPI rank 3 L1 tid 7 L2 tid 0 is placed on Core ID 25
+MPI rank 4 L1 tid 0 L2 tid 0 is placed on Core ID 40
+MPI rank 4 L1 tid 1 L2 tid 0 is placed on Core ID 37
+MPI rank 4 L1 tid 2 L2 tid 0 is placed on Core ID 36
+MPI rank 4 L1 tid 3 L2 tid 0 is placed on Core ID 35
+MPI rank 4 L1 tid 4 L2 tid 0 is placed on Core ID 34
+MPI rank 4 L1 tid 5 L2 tid 0 is placed on Core ID 39
+MPI rank 4 L1 tid 6 L2 tid 0 is placed on Core ID 38
+MPI rank 4 L1 tid 7 L2 tid 0 is placed on Core ID 33
+MPI rank 5 L1 tid 0 L2 tid 0 is placed on Core ID 48
+MPI rank 5 L1 tid 1 L2 tid 0 is placed on Core ID 45
+MPI rank 5 L1 tid 2 L2 tid 0 is placed on Core ID 44
+MPI rank 5 L1 tid 3 L2 tid 0 is placed on Core ID 43
+MPI rank 5 L1 tid 4 L2 tid 0 is placed on Core ID 42
+MPI rank 5 L1 tid 5 L2 tid 0 is placed on Core ID 47
+MPI rank 5 L1 tid 6 L2 tid 0 is placed on Core ID 46
+MPI rank 5 L1 tid 7 L2 tid 0 is placed on Core ID 41
+MPI rank 8 L1 tid 0 L2 tid 0 is placed on Core ID 76
+MPI rank 8 L1 tid 1 L2 tid 0 is placed on Core ID 73
+MPI rank 8 L1 tid 2 L2 tid 0 is placed on Core ID 72
+MPI rank 8 L1 tid 3 L2 tid 0 is placed on Core ID 71
+MPI rank 8 L1 tid 4 L2 tid 0 is placed on Core ID 70
+MPI rank 8 L1 tid 5 L2 tid 0 is placed on Core ID 75
+MPI rank 8 L1 tid 6 L2 tid 0 is placed on Core ID 74
+MPI rank 8 L1 tid 7 L2 tid 0 is placed on Core ID 69
+MPI rank 9 L1 tid 0 L2 tid 0 is placed on Core ID 84
+MPI rank 9 L1 tid 1 L2 tid 0 is placed on Core ID 81
+MPI rank 9 L1 tid 2 L2 tid 0 is placed on Core ID 80
+MPI rank 9 L1 tid 3 L2 tid 0 is placed on Core ID 79
+MPI rank 9 L1 tid 4 L2 tid 0 is placed on Core ID 78
+MPI rank 9 L1 tid 5 L2 tid 0 is placed on Core ID 83
+MPI rank 9 L1 tid 6 L2 tid 0 is placed on Core ID 82
+MPI rank 9 L1 tid 7 L2 tid 0 is placed on Core ID 77
+MPI rank 2 L1 tid 0 L2 tid 0 is placed on Core ID 24
+MPI rank 2 L1 tid 1 L2 tid 0 is placed on Core ID 21
+MPI rank 2 L1 tid 2 L2 tid 0 is placed on Core ID 20
+MPI rank 2 L1 tid 3 L2 tid 0 is placed on Core ID 19
+MPI rank 2 L1 tid 4 L2 tid 0 is placed on Core ID 18
+MPI rank 2 L1 tid 5 L2 tid 0 is placed on Core ID 23
+MPI rank 2 L1 tid 6 L2 tid 0 is placed on Core ID 22
+MPI rank 2 L1 tid 7 L2 tid 0 is placed on Core ID 17
