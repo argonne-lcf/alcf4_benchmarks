@@ -44,7 +44,8 @@ nX -  grid points per dimension
 
 ### Building
 ```zsh
-tar -xzf Thornado-ALCF_4-ref.tar.gz 
+tar -xzf Thornado-ALCF_4-ref.tar.gz
+export EXASTAR_HOME=${PWD}
 cd thornado/benchmark/{sys}
 
  sys - on which system/site, e.g. ‘sunspot.alcf.anl’
@@ -54,7 +55,6 @@ cd thornado/benchmark/{sys}
 
 #### Set root directory and directories for the tools
 ```zsh
-export EXASTAR_HOME=${PWD}
 export THORNADO_DIR=${EXASTAR_HOME}/thornado
 export WEAKLIB_DIR=${EXASTAR_HOME}/weaklib
 export WEAKLIB_TABLES_DIR=${EXASTAR_HOME}/weaklib-tables
