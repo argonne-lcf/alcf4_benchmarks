@@ -1,0 +1,344 @@
+Partition 3D: [48:32:32]
+Threads per process: 1
+Allocated heap: 734.87 MB (large) + 132.36 MB (small) used, 0.85 MB unused
+Done loading parameters.
+Initializing redistribution using a pencil layout on 49152 ranks.
+distribution 1D: [49152:1:1]
+distribution 3D: [48:32:32]
+distribution 2z: [192:256:1]
+distribution 2x: [1:256:192]
+distribution 2y: [192:1:256]
+
+Initializer will use 49152 processors.
+6912^3 grid
+Decomposing into pencils...............done
+Using white noise initializer
+
+sigma_8 = 0.800000, target was 0.800000
+redshift: 50.000000; growth factor = 0.025580; derivative = 4.929765
+
+
+FFT DONE!
+
+Min and max value of density in k space: -442.421 438.564
+Average value of density in k space: -4.21134e-07
+
+FFT DONE!
+
+Max value of the imaginary part of density is 6.49008e-09
+Min and max value of density in code units: -25.2253 24.3591
+Average value of density in code units: -1.93832e-08
+
+FFT DONE!
+
+FFT DONE!
+
+Max value of the imaginary part of the force is 9218.92
+Min and max value of force in code units: -47.3597 48.2364
+Average value of force in code units: -3.40243e-07
+Max move in X: 1.23386
+Average move in X: 0.159947
+
+FFT DONE!
+
+FFT DONE!
+
+Max value of the imaginary part of the force is 9533.35
+Min and max value of force in code units: -52.3797 48.8558
+Average value of force in code units: -2.56036e-07
+Max move in Y: 1.33985
+Average move in Y: 0.159079
+
+FFT DONE!
+
+FFT DONE!
+
+Max value of the imaginary part of the force is 10653.3
+Min and max value of force in code units: -49.3731 49.0332
+Average value of force in code units: -6.65023e-09
+Max move in Z: 1.26294
+Average move in Z: 0.159463
+
+
+====================================================================
+Initializer: code performance summary 
+             code beginning : Tue Apr  8 16:47:05 2025
+             code ending    : Tue Apr  8 16:48:03 2025
+             total run time : 71.9299 seconds 
+====================================================================
+
+Routine            # of calls       Time [s]       Percent of total 
+--------------------------------------------------------------------
+Initialization       1              3.464              4.815    
+Creating Pk(x,y,z)   1              0.4186             0.582    
+Tests                7              27.86              38.74    
+Creating rho(x,y,z)  3              9.418              13.09    
+Poisson solve        3              24.01              33.38    
+Particle move        3              2.286              3.179    
+Output               3              0.07134            0.09919  
+====================================================================
+
+PXCH buffer = 2*1767688 = 3.371597 MB
+InitialExchange TotalAliveParticles 330225942528
+
+------------------------------------
+boxSize:  5232.38
+deltaBox: 8.327
+PXCH buffer = 2*22297300 = 42.528725 MB
+TotalAliveParticles 330225942528
+TotalDeadParticles  131948371427
+
+
+Allocated heap: 1155.67 MB (large) + 133.18 MB (small) used, 0.13 MB unused
+Initializing redistribution using a pencil layout on 49152 ranks.
+distribution 1D: [49152:1:1]
+distribution 3D: [48:32:32]
+distribution 2z: [192:256:1]
+distribution 2x: [1:256:192]
+distribution 2y: [192:1:256]
+P(k) initial
+
+
+Allocated heap: 1579.19 MB (large) + 133.24 MB (small) used, 0.08 MB unused
+STEP 0, pp = 0.019608, a = 0.019608, z = 49.999998, Elapsed time =           0.000008 seconds
+
+Time for resortParticles() : 0.456015 seconds
+	tree post-build statistics (local for rank 0):
+		particles: 9398886.00
+		nodes: 64533.00 (allocated:  73429.00)
+		leaves: 32267.00 (empty: 0.00)
+		mean ppn: 291.28 (max ppn: 512)
+		build time: 1.75069 s
+
+Time for calcInternodeForces() : 2.560579 seconds
+Time spent in Treewalk         : 0.052706 seconds
+
+
+Time for resortParticles() : 0.812177 seconds
+	tree post-build statistics (local for rank 0):
+		particles: 9398909.00
+		nodes: 64587.00 (allocated:  73429.00)
+		leaves: 32294.00 (empty: 0.00)
+		mean ppn: 291.04 (max ppn: 512)
+		build time: 1.60355 s
+
+Time for calcInternodeForces() : 1.726397 seconds
+Time spent in Treewalk         : 0.057747 seconds
+
+
+Time for resortParticles() : 0.819015 seconds
+	tree post-build statistics (local for rank 0):
+		particles: 9398918.00
+		nodes: 64611.00 (allocated:  73429.00)
+		leaves: 32306.00 (empty: 0.00)
+		mean ppn: 290.93 (max ppn: 512)
+		build time: 1.48973 s
+
+Time for calcInternodeForces() : 1.479741 seconds
+Time spent in Treewalk         : 0.065917 seconds
+
+
+Time for resortParticles() : 0.642671 seconds
+	tree post-build statistics (local for rank 0):
+		particles: 9398920.00
+		nodes: 64685.00 (allocated:  73429.00)
+		leaves: 32343.00 (empty: 0.00)
+		mean ppn: 290.60 (max ppn: 512)
+		build time: 1.51999 s
+
+Time for calcInternodeForces() : 1.463894 seconds
+Time spent in Treewalk         : 0.073561 seconds
+
+
+Time for resortParticles() : 0.494185 seconds
+	tree post-build statistics (local for rank 0):
+		particles: 9398924.00
+		nodes: 64727.00 (allocated:  73429.00)
+		leaves: 32364.00 (empty: 0.00)
+		mean ppn: 290.41 (max ppn: 512)
+		build time: 1.16169 s
+
+Time for calcInternodeForces() : 1.219564 seconds
+Time spent in Treewalk         : 0.074400 seconds
+
+Initializing redistribution using a pencil layout on 49152 ranks.
+distribution 1D: [49152:1:1]
+distribution 3D: [48:32:32]
+distribution 2z: [192:256:1]
+distribution 2x: [1:256:192]
+distribution 2y: [192:1:256]
+total alive density   = 330225929923.930847
+total alive particles = 330225881641
+step   max  7.786e+01 s  avg  7.692e+01 s  min  7.600e+01 s
+
+Allocated heap: 1664.31 MB (large) + 137.30 MB (small) used, 19.66 MB unused
+STEP 1, pp = 0.028945, a = 0.028945, z = 33.548386, Elapsed time =          79.256385 seconds
+
+Time for resortParticles() : 0.770970 seconds
+	tree post-build statistics (local for rank 0):
+		particles: 9398922.00
+		nodes: 64707.00 (allocated:  73429.00)
+		leaves: 32354.00 (empty: 0.00)
+		mean ppn: 290.50 (max ppn: 512)
+		build time: 1.6688 s
+
+Time for calcInternodeForces() : 2.268124 seconds
+Time spent in Treewalk         : 0.054438 seconds
+
+
+Time for resortParticles() : 0.772351 seconds
+	tree post-build statistics (local for rank 0):
+		particles: 9398902.00
+		nodes: 64739.00 (allocated:  73429.00)
+		leaves: 32370.00 (empty: 0.00)
+		mean ppn: 290.36 (max ppn: 512)
+		build time: 1.65311 s
+
+Time for calcInternodeForces() : 1.893063 seconds
+Time spent in Treewalk         : 0.061878 seconds
+
+
+Time for resortParticles() : 0.824378 seconds
+	tree post-build statistics (local for rank 0):
+		particles: 9398841.00
+		nodes: 64769.00 (allocated:  73429.00)
+		leaves: 32385.00 (empty: 0.00)
+		mean ppn: 290.22 (max ppn: 512)
+		build time: 1.50876 s
+
+Time for calcInternodeForces() : 1.824009 seconds
+Time spent in Treewalk         : 0.060930 seconds
+
+
+Time for resortParticles() : 0.791806 seconds
+	tree post-build statistics (local for rank 0):
+		particles: 9398676.00
+		nodes: 64811.00 (allocated:  73425.00)
+		leaves: 32406.00 (empty: 0.00)
+		mean ppn: 290.03 (max ppn: 512)
+		build time: 1.41716 s
+
+Time for calcInternodeForces() : 1.752542 seconds
+Time spent in Treewalk         : 0.059749 seconds
+
+
+Time for resortParticles() : 0.688428 seconds
+	tree post-build statistics (local for rank 0):
+		particles: 9398401.00
+		nodes: 64819.00 (allocated:  73425.00)
+		leaves: 32410.00 (empty: 0.00)
+		mean ppn: 289.98 (max ppn: 512)
+		build time: 1.12243 s
+
+Time for calcInternodeForces() : 1.682089 seconds
+Time spent in Treewalk         : 0.055616 seconds
+
+Initializing redistribution using a pencil layout on 49152 ranks.
+distribution 1D: [49152:1:1]
+distribution 3D: [48:32:32]
+distribution 2z: [192:256:1]
+distribution 2x: [1:256:192]
+distribution 2y: [192:1:256]
+total alive density   = 330225929930.035156
+total alive particles = 330225888689
+step   max  5.318e+01 s  avg  5.235e+01 s  min  5.150e+01 s
+
+Allocated heap: 1664.31 MB (large) + 137.30 MB (small) used, 19.65 MB unused
+STEP 2, pp = 0.038282, a = 0.038282, z = 25.121951, Elapsed time =         134.079062 seconds
+
+Time for resortParticles() : 0.775927 seconds
+	tree post-build statistics (local for rank 0):
+		particles: 9398034.00
+		nodes: 64811.00 (allocated:  73421.00)
+		leaves: 32406.00 (empty: 0.00)
+		mean ppn: 290.01 (max ppn: 512)
+		build time: 1.5521 s
+
+Time for calcInternodeForces() : 1.641490 seconds
+Time spent in Treewalk         : 0.065871 seconds
+
+
+Time for resortParticles() : 0.823198 seconds
+	tree post-build statistics (local for rank 0):
+		particles: 9397591.00
+		nodes: 64805.00 (allocated:  73417.00)
+		leaves: 32403.00 (empty: 0.00)
+		mean ppn: 290.02 (max ppn: 512)
+		build time: 1.54477 s
+
+Time for calcInternodeForces() : 1.452926 seconds
+Time spent in Treewalk         : 0.063931 seconds
+
+
+Time for resortParticles() : 0.696924 seconds
+	tree post-build statistics (local for rank 0):
+		particles: 9397064.00
+		nodes: 64813.00 (allocated:  73413.00)
+		leaves: 32407.00 (empty: 0.00)
+		mean ppn: 289.97 (max ppn: 512)
+		build time: 1.40407 s
+
+Time for calcInternodeForces() : 1.140321 seconds
+Time spent in Treewalk         : 0.069889 seconds
+
+
+Time for resortParticles() : 0.506055 seconds
+	tree post-build statistics (local for rank 0):
+		particles: 9396464.00
+		nodes: 64793.00 (allocated:  73409.00)
+		leaves: 32397.00 (empty: 0.00)
+		mean ppn: 290.04 (max ppn: 512)
+		build time: 1.21717 s
+
+Time for calcInternodeForces() : 0.999056 seconds
+Time spent in Treewalk         : 0.086196 seconds
+
+
+Time for resortParticles() : 0.641780 seconds
+	tree post-build statistics (local for rank 0):
+		particles: 9395837.00
+		nodes: 64799.00 (allocated:  73405.00)
+		leaves: 32400.00 (empty: 0.00)
+		mean ppn: 289.99 (max ppn: 512)
+		build time: 0.933704 s
+
+Time for calcInternodeForces() : 1.217408 seconds
+Time spent in Treewalk         : 0.068671 seconds
+
+Initializing redistribution using a pencil layout on 49152 ranks.
+distribution 1D: [49152:1:1]
+distribution 3D: [48:32:32]
+distribution 2z: [192:256:1]
+distribution 2x: [1:256:192]
+distribution 2y: [192:1:256]
+total alive density   = 330225929935.984375
+total alive particles = 330225891367
+step   max  5.316e+01 s  avg  5.238e+01 s  min  5.157e+01 s
+
+Final elapsed time, seconds:   188.599410437277
+P(k) final
+t_f1 : 3.609064 seconds
+t_f2 : 9.018189 seconds
+t_b1 : 20.594173 seconds
+t_b2 : 52.153815 seconds
+t_sub : 58.844257 seconds
+t_s1 : 28.812518 seconds
+t_s2 : 0.000000 seconds
+t_a1 : 2.205592 seconds
+t_a2 : 6.089970 seconds
+P(k) final
+
+ACCUMULATED STATS
+step   max  1.835e+02 s  avg  1.817e+02 s  min  1.800e+02 s
+calc   max  2.965e+01 s  avg  2.299e+01 s  min  1.449e+01 s
+build  max  4.744e+01 s  avg  2.110e+01 s  min  1.733e+01 s
+srt    max  1.320e+01 s  avg  1.065e+01 s  min  8.569e+00 s
+t_f1   max  6.265e+00 s  avg  4.744e+00 s  min  3.347e+00 s
+t_f2   max  1.511e+01 s  avg  1.239e+01 s  min  8.989e+00 s
+t_b1   max  2.112e+01 s  avg  1.945e+01 s  min  1.782e+01 s
+t_b2   max  5.428e+01 s  avg  5.250e+01 s  min  5.094e+01 s
+t_sub  max  7.941e+01 s  avg  5.741e+01 s  min  4.566e+01 s
+t_s1   max  4.200e+01 s  avg  3.045e+01 s  min  8.344e+00 s
+t_s2   max  0.000e+00 s  avg  0.000e+00 s  min  0.000e+00 s
+t_a1   max  2.638e+00 s  avg  1.595e+00 s  min  7.542e-01 s
+t_a2   max  6.105e+00 s  avg  3.077e+00 s  min  6.252e-01 s

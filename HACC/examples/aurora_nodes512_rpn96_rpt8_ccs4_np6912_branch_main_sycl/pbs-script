@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+
+#PBS -l select=512
+#PBS -l walltime=00:30:00
+#PBS -l filesystems=flare
+#PBS -A Catalyst
+#PBS -q lustre_scaling
+#PBS -N ALCF4-HACCB24
+
+export RANKS_PER_NODE=96				# Number of MPI ranks per node
+export RANKS_PER_TILE=8
+ 
+export VERBOSE_RANK_NODE_MAP=false
+
+module list
+
+export EnableFlushTaskSubmission=1			# Driver uses csr flushTask for immediate commandlist submissions.
+export ZE_ENABLE_PCI_ID_DEVICE_ORDER=1			# Forces driver to report devices from lowest to highest PCI bus ID.
+export ZEX_NUMBER_OF_CCS=0:4
+export EngineInstancedSubDevices=0
+export IGC_ForceOCLSIMDWidth=16				# Use SIMD 16 for all kernels
+export FI_MR_CACHE_MONITOR=disabled
+export FI_CXI_DEFAULT_CQ_SIZE=8192
+export MPIR_CVAR_ENABLE_GPU=0
+export OMP_NUM_THREADS=1
+export KMP_AFFINITY=granularity=core,compact,1
+export HPM_PROFILE_THRESHOLD=2100000
+
+rpn=${RANKS_PER_NODE}
+cores_per_socket=52
+ranks_per_tile=${RANKS_PER_TILE}
+shift=4
+
+((rps=rpn/2))						# ranks per socket
+((inc=2*cores_per_socket))				# 2 sockets, increment
+((r0=shift))						# rank 0 placed to r0,hr0 populating socket 0
+((hr0=r0+inc))
+((r1=cores_per_socket+shift))
+((hr1=r1+inc))
+
+ranks0="${r0},${hr0}"
+ranks1="${r1},${hr1}"
+
+for ((r=1; r<${rps}; r++)); do
+    
+    ((r0=r0+1))
+    ((hr0=hr0+1))
+    ((r1=r1+1))
+    ((hr1=hr1+1))
+    
+    ranks0="${ranks0}:${r0},${hr0}"
+    ranks1="${ranks1}:${r1},${hr1}"
+done
+
+ranks=${ranks0}:${ranks1}
+
+echo Working directory is $PBS_O_WORKDIR
+cd $PBS_O_WORKDIR
+echo Jobid: $PBS_JOBID
+echo Running on host `hostname`
+echo Running on nodes `cat $PBS_NODEFILE` > PBS_NODEFILE.log
+
+NNODES=`wc -l < $PBS_NODEFILE`
+NRANKS=$(( NNODES * RANKS_PER_NODE ))
+
+echo "NUM_OF_NODES=${NNODES}  TOTAL_NUM_RANKS=${NRANKS}  RANKS_PER_NODE=${RANKS_PER_NODE}  RANKS_PER_TILE=${RANKS_PER_TILE}"
+
+cat /proc/cpuinfo > cpuinfo.log
+numactl -H > numactl.log
+
+ldd ./hacc_tpm
+
+mpiexec --np ${NRANKS} -ppn ${RANKS_PER_NODE} --cpu-bind list:${ranks} \
+./set_ze_mask.sh ./hacc_tpm indat cmbM000.tf m000 INIT ALL_TO_ALL -w -R -N 512 -a final -f refresh -t 48x32x32

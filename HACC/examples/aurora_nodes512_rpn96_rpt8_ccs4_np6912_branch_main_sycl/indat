@@ -1,0 +1,41 @@
+1           # skip, stride in particle data output           
+0           # jinit, 0=>internal ICs, 1=>read ICs, 2=>restart ICs
+1           # icbc, 0=>enforce periodic BCs, otherwise not (for jinit=1)
+1           # norm, 0=>COBE 4-yr B/W, 1=> sigma8, 2=>COBE Peebles
+0           # trans, 0=>T(k)=1, 1=>T(k)=H/S, 2=>T(k)=K/H, 3=>T(k)=CMBFAST
+1           # initp, 0=>particle ICs before BCs, 1=>after, 2=>density ICc, else no print
+2           # norder, order of time integration (locked to 2 here)
+9           # frm, output format, 1=> ascii, 2=> binary, 3=> ascii, 2d density
+2           # pbchoice, 1=>box units, 2=> physical units
+1           # entest, 0=>Layzer-Irvine test, else not 
+6912        # ng: number of grid points per dimension
+512         # ng2d: ng for 2 dim density projection
+0.97        # ns: index of the primordial power spectrum
+5009888     # iseed: seed for random number generation
+1.0         # alpha, power of scale factor in timestepping
+50.0        # zin
+20.0        # zfin
+8.0         # zpr, redshift after which printing begins
+6912        # np, number of particles per dimension
+3           # nsteps, number of time-steps
+200         # iprint, output interval
+0           # irun, 0=>free-run, else prints given at zprnt(irun)
+0.7         # Hubble constant/100 km/s/Mpc
+0.23387755  # Omegadm
+0.0226      # deut, Omegab=deut/h/h
+5232.384    # physical box size [h^(-1)Mpc]
+0.8         # target value of sigma8
+18.e-6      # qq, 18.e-6=COBE/DMR (4-yr for n=1) Q_rms (K)
+5001        # nxint, evaluation points (ODD) for D_0 integral
+5001        # nxdint, evaluation points (ODD) for D integral
+3           # hdfform, version number of hdf-format
+32          # rprec, precision of reals
+32          # iprec, precision of integers
+0           # byteorder, 0=>QSC,Venom, 1=>Seaborg
+-1.0        # EOS
+8.0         # overload length
+5           # nsub
+3.2         # edge
+0.007       # rsm
+3.12        # cmsize
+0.1         # openening angle
