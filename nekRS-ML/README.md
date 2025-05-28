@@ -102,6 +102,9 @@ and $N_{inference}$ is the number of GNN inference steps performed. The number o
 
 ## Building nekRS-ML
 
+The version of nekRS-ML used for the ALCF-4 benchmark is the `alcf4` branch of the nekRS-ML repo. 
+You can fine the source code [at this link](https://github.com/argonne-lcf/nekRS-ML/tree/alcf4).
+
 To build nekRS with the required plugins and ADIOS2, simply execute or modify one of the the build scripts provided in the top directory of the nekRS repo.
 
 For example, to build on ALCF Aurora execute
