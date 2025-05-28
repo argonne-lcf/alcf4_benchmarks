@@ -45,7 +45,6 @@ Below are the system components the benchmark is designed to stress.
 **nekRS**
 
 * Accelerator HBM bandwidth
-* More details are upcoming
 
 **Mesh-based consistent GNN**
 
@@ -79,14 +78,14 @@ FOM_{nekRS} = \frac{N_{nodes} \times N_{nekRS}}{t_{nekRS}} \quad \text{[million 
 FOM_{train} = \frac{N_{nodes} \times N_{train}}{t_{train}} \quad \text{[million graph nodes / sec]}
 ```
 ```math
-FOM_{transfer} = \left< \frac{data \: size}{t_{transfer}} \right> \quad \text{[TB / sec]}
+FOM_{transfer} = \left< \frac{data \: size}{t_{transfer}} \right> \quad \text{[GB / sec]}
 ```
 
-and $N_{nekRS}$, $N_{train}$ are the number of nekRS time steps and GNN training steps performed, respectively. The number of mesh and graph nodes is measured in units of millions, and the data size in units of TB.
+and $N_{nekRS}$, $N_{train}$ are the number of nekRS time steps and GNN training steps performed, respectively. The number of mesh and graph nodes is measured in units of millions, and the data size in units of GB.
 
 For the solution shooting stage, the FOM is defined as the ratio of the GNN inference throughput relative to the nekRS throughput, thus evaluating the ability of the GNN surrogate to advance the solution relative to the simulation code.
 ```math
-FOM_{shoot} = \frac{FOM_{inference}}{FOM_{nekRS}}
+FOM_{shoot} = \frac{FOM_{inference} \times dt_{ratio}}{FOM_{nekRS}}
 ```
 
 where
@@ -94,52 +93,65 @@ where
 ```math
 FOM_{inference} = \frac{N_{nodes} \times N_{inference}}{t_{inference}} \quad \text{[million graph nodes / sec]}
 ```
+```math
+dt_{ratio} = \frac{dt_{GNN}}{dt_{nekRS}} \quad \text{ratio of GNN to nekRS time step size}
+```
 
-and $N_{inference}$ is the number of GNN inference steps performed. The number of mesh and graph nodes is measured in units of millions.
+and $N_{inference}$ is the number of GNN inference steps performed. The number of mesh and graph nodes is measured in units of millions, and the time step ratio $dt_{ratio}$ is fixed to 10 by the science case.
 
 
 ## Building nekRS-ML
 
 To build nekRS with the required plugins and ADIOS2, simply execute or modify one of the the build scripts provided in the top directory of the nekRS repo.
-For example, to build on Aurora execute
+
+For example, to build on ALCF Aurora execute
 
 ```bash
-source BuildMeOnAurora
+./BuildMeOnAurora
+```
+
+and to build on ALCF Polaris execute
+
+```bash
+./BuildMeOnPolaris
 ```
 
 Note:
 
-* The build and run scripts for the benchmark rely on the environment variable `NEKRS_HOME` being set. This is where install direcotory for nekRS where the executable will be found along with the header files and the GNN training and inference code. By default, nekRS is installed in the user's home directory, but users can change this variable in the build scripts as desired.
+* The build scripts will ask for the desired path to the install directory for nekRS. By default, nekRS is installed in the user's home directory, but users can provide the desired path as an input to the scripts.
 
 
 ## Running the benchmark
 
 **Warning:** Please check in on these instructions periodically as we refine the benchmark.
 
-The ALCF-4 benchmark is located in the [shooting_workflow_adios](https://github.com/argonne-lcf/nekRS/tree/simai_alcf-4/examples/shooting_workflow_adios) example within the nekRS repo.
-Scripts are provided in the benchmark directory to generate run and submit scripts, along with the config file for the workflow on the different ALCF systems.
+The ALCF-4 benchmark is located in the [shooting_workflow_adios](https://github.com/argonne-lcf/nekRS-ML/tree/alcf4/examples/shooting_workflow_adios) example within the `alcf4` branch of the [nekRS-ML](https://github.com/argonne-lcf/nekRS-ML) repo.
+Scripts are provided in the benchmark directory to generate run scripts, along with the config file for the workflow on the different ALCF systems.
 
-For example, to generate a job submit script for Aurora, execute the following script taking notice of some important variables.
+For example, to generate a run script for Aurora, execute the following script **from a compute node** taking notice of some important variables.
 ```bash
-./gen_qsub_script
+./gen_run_script system_name /path/to/nekRS
 ```
 
-* `SYSTEM`: This is the ALCF system to run on and determines which nekRS config script to run (e.g., [nrsqsub_aurora](https://github.com/argonne-lcf/nekRS/blob/simai_alcf-4/examples/shooting_workflow_adios/nrsqsub_aurora) for Aurora). Please take a close look at these scripts for the details on how the config file is generated and how the workflow is executed.
-* `DEPLOYMENT`: This selects the deployment strategy for the workflow. It is set to `colocated` or `clustered`.
-* `NEKRS_HOM`: The path to the install directory where nekRS was built
-* `VENV_PATH`: The path to a virtual environment to load. This is not needed if the base environment has all the dependencies needed by the GNN.
-* `PROJ_ID` and `QUEUE`: The allocation name and queue on which to run on. These also also not required.
+* `system_name`: This is the ALCF system to run on and determines which nekRS config script to run (e.g., [nrsrun_aurora](https://github.com/argonne-lcf/nekRS-ML/blob/alcf4/examples/shooting_workflow_adios/nrsrun_aurora) for Aurora). Please take a close look at these scripts for the details on how the config file is generated, what environment variables are set, and how the workflow is executed.
+* `/path/to/nekRS`: The path to the install directory where nekRS was built
 
-The generation scripts `gen_qsub_script` and `gen_run_script` create `submit_nekRSML.sh` and `run.sh`, respectively, which are used to run the workflow. 
+Within the `gen_run_script` script, also note:
 
-The `submit_nekRSML.sh` and `run.sh` scripts are composed of two steps:
+* `DEPLOYMENT`: : This selects the deployment strategy for the workflow. It can be set to `colocated` or `clustered`.
+* `VENV_PATH`: The path to a virtual environment to load. This is not needed if the base environment has all the dependencies needed by the GNN. If a venv is not specified, the script will create one and install PyTorch Geometric since this package is missing from the default conda environments on ALCF systems.
+* `PROJ_ID` and `QUEUE`: The allocation name and queue on which to run on. These are not required.
 
-* First nekRS is run by itself with the `--build-only` flag. This is done such that the `.cache` directory can be built beforehand instead of during online training. This step can be run only once (unless major code changes require the cache to be updated) and is helpful to avoid halting the progress of the benchmark while the cache is built.
-* Then, the workflow is executed with `python driver.py`, where [driver.py](https://github.com/argonne-lcf/nekRS/blob/simai_alcf-4/examples/shooting_workflow_adios/driver.py) is the workflow driver script. The configuration of the workflow and its components is defined in the `config.yaml` file, generated by the nekRS config scripts in the step above (see [here](https://github.com/argonne-lcf/nekRS/blob/72658d9bfb660482eae29ccd1d498155fde59dc7/examples/shooting_workflow_adios/nrsqsub_aurora#L98) for an example). The driver first launches fine tuning (nekRS + GNN training) followed by GNN inference on the requested resources. 
+The generation script `gen_run_script` creates `run.sh`, which is used to run the workflow. 
+
+The `run.sh` script is composed of two steps:
+
+* First nekRS is run by itself with the `--build-only` flag. This is done such that the `.cache` directory can be built beforehand instead of during online training. This step can be run only once (unless major code changes require the cache to be updated) and is helpful to avoid halting the progress of the benchmark while the cache is built. Note that if the mesh size changes (the problem is scaled up or down), the cache needs to be rebuilt. 
+* Then, the workflow is executed with `python driver.py`, where [driver.py](https://github.com/argonne-lcf/nekRS-ML/blob/alcf4/examples/shooting_workflow_adios/driver.py) is the workflow driver script. The configuration of the workflow and its components is defined in the `config.yaml` file, generated by the nekRS config scripts in the step above. The driver first launches fine tuning (nekRS + GNN training) followed by GNN inference on the requested resources. 
 
 The outputs logs of the nekRS, trainer and inference will be within the `./logs` directory created at runtime. The driver script will output all FOM measurements requested.
 
 
 ## Rules for running the benchmark
 
-A set of rules for running the nekRS-ML benchmark is upcoming. 
+A set of rules for running the nekRS-ML benchmark to obtain the baseline and optimized FOMs is upcoming. 
