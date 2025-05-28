@@ -94,7 +94,7 @@ where
 FOM_{inference} = \frac{N_{nodes} \times N_{inference}}{t_{inference}} \quad \text{[million graph nodes / sec]}
 ```
 ```math
-dt_{ratio} = \frac{dt_{GNN}}{dt_{nekRS}} \quad \text{ratio of GNN to nekRS time step size}
+dt_{ratio} = \frac{dt_{GNN}}{dt_{nekRS}} \quad \text{[ratio of GNN to nekRS time step size]}
 ```
 
 and $N_{inference}$ is the number of GNN inference steps performed. The number of mesh and graph nodes is measured in units of millions, and the time step ratio $dt_{ratio}$ is fixed to 10 by the science case.
