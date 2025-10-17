@@ -128,11 +128,13 @@ Note:
 
 **Warning:** Please check in on these instructions periodically as we refine the benchmark.
 
+
 The ALCF-4 benchmark is located in the [shooting_workflow_adios](https://github.com/argonne-lcf/nekRS-ML/tree/alcf4/examples/shooting_workflow_adios) example within the `alcf4` branch of the [nekRS-ML](https://github.com/argonne-lcf/nekRS-ML/tree/alcf4) repo.
 Instructions and the necessary scripts are provided in the benchmark directory, but are also summarized below.
 
 After building nekRS-ML, the `gen_run_script` can be used to generate the run/submit script, called `run.sh`, and the configuration file, called `config.yaml`, for the workflow. 
 For example, to generate a run script for Aurora, execute the following script **from a compute node**
+
 ```bash
 ./gen_run_script system_name /path/to/nekRS
 ```
