@@ -22,7 +22,7 @@ The workflow is composed of the following two stages, run one after the other as
 The workflow is made up of the following two components:
 
 * **nekRS:** [nekRS](https://github.com/argonne-lcf/nekRS) is a GPU-capable and highly scalable code for thermal-fluids simulations based on the spectral element method. For portability, the code is based on the open concurrent compute abstraction (OCCA) with CUDA, HIP and SYCL backends. The code leverages advances from [libParanumal](https://github.com/paranumal/libparanumal) and its precursor [nek5000](https://github.com/Nek5000/Nek5000). nekRS was a finlaist for the 2023 ACM Gordon Bell Prize when coupled with a Monte Carlo neutron transport code. More details on nekRS can be found at [this reference](https://www.sciencedirect.com/science/article/pii/S0167819122000710).
-* **Mesh-based consistent and distributed GNN:** The ML surrogate being used is a distributed GNN for mesh-based modeling using consistent loss and neural message passing layers. The GNN works partitions of the entire graph, called sub-graphs, which are created directly from the CFD mesh used by nekRS, thereby enabling training and inference on extremely large graphs. The GNN implements a halo exchange in the neural message passing layers to ensure node aggregation steps span across sub-graphs. The halo exchanges, together with a consistent loss computation, guarantee continuity in the predictions actross sub-graphs and consistency during training and inference, where consistency refers to the fact that the GNN trained and evaluated on one rank (one large graph) is arithmetically equivalent to evaluations on multiple ranks (a partitioned graph). The GNN is implemented in PyTorch and PyTorch Geometric and distributed training is performed with PyTorch DDP. More details on the GNN can be found at [this reference](https://ieeexplore.ieee.org/abstract/document/10820662).
+* **Mesh-based consistent and distributed GNN (Dist-GNN):** The ML surrogate being used is a distributed GNN (Dist-GNN) for mesh-based modeling using consistent loss and neural message passing layers. The GNN operates on partitions of the entire graph, called sub-graphs, which are created directly from the CFD mesh used by nekRS, thereby enabling training and inference on extremely large graphs. The Dist-GNN implements a halo exchange in the neural message passing layers to ensure node aggregation steps span across sub-graphs. The halo exchanges, together with a consistent loss computation, guarantee continuity in the predictions actross sub-graphs and consistency during training and inference, where consistency refers to the fact that the GNN trained and evaluated on one rank (one large graph) is arithmetically equivalent to evaluations on multiple ranks (a partitioned graph). Dist-GNN is implemented in PyTorch and PyTorch Geometric and distributed training is performed with PyTorch DDP. More details on the Dist-GNN can be found at [this reference](https://ieeexplore.ieee.org/abstract/document/10820662).
 
 The workflow is implemented using [ADIOS2](https://github.com/ornladios/ADIOS2) to transfer data between components. The following data transfers are performed, as shown in Figure 1:
 
@@ -60,9 +60,8 @@ Below are the system components the benchmark is designed to stress.
 
 **Online fine-tuning**
 
-* High-speed interconnect: training data transfer can be a bottleneck at scale on the GNN fine-tuning. Efficient data transfer is key for efficient fine-tuning at scale.
+* High-speed interconnect: training data transfer can be a bottleneck at scale on the GNN fine-tuning. Efficient data transfer is key for efficient fine-tuning at scale. The clustered deployment specifically tests the bisection bandwidth of the interconnect. 
 * System design: given specialized hardware for AI and Mod-Sim applications or the use of general purpose accelerators, the workflow measures how this hardware comes together to form the full system 
-* Node DDR size: available node memory impacts the number of solution snapshots (i.e., training samples) that can be stored in-memory during fine-tuning
 
 
 ## Figures of Merit (FOMs)
@@ -150,7 +149,7 @@ taking notice of some important parameters:
 * `system_name`: This is the ALCF system to run on and determines which nekRS config script to run (e.g., [nrsrun_aurora](https://github.com/argonne-lcf/nekRS-ML/blob/alcf4/examples/shooting_workflow_adios/nrsrun_aurora) for Aurora). Please take a close look at these scripts for details on how the config file is generated, what environment variables are set, and how the workflow is executed.
 * `/path/to/nekRS`: The path to the install directory where nekRS was built
 * `--client`: This selects the client to be used to transfer data during online training and must be set to `adios` for this benchmark. This parameter is already set in `gen_run_script`.
-* `--deployment`: This selects the deployment strategy for the workflow. It can be set to `colocated` or `clustered`. It is set to `colocated` at the moment, but the vendor may change it to clustered if desired.
+* `--deployment`: This selects the deployment strategy for the workflow. It is set to `clustered` for this benchmark (see the [data transfer performance analysis slides](./material/data_transfer_perf_analysis.pdf) for more detail on the deployment startegy).
 * `--venv_path`: The path to a virtual environment to load. This is not needed if the base environment has all the dependencies needed by the GNN. If a venv is not specified, the script will create one and install the needed dependencies.
 * For a full list of parameters accepted by `gen_run_script`, execute `./gen_run_script --help`.
 
@@ -186,6 +185,14 @@ Allowed changes include:
 * Optimizations obtained from standard compiler flags and other compiler flag hints that do not require modifications of the source code. 
 * Changes in the system software, such as expected improvements to compilers, threading runtimes, and MPI implementations can be considered.
 
+Changes not permitted:
+
+* The workflow must be run in a clustered configuration ensuring that the nekRS and GNN fine-tuning components run on separate set of nodes, thus forcing the data transfer to occurr over the interconnect. 
+
 
 ### Optimized FOMs
+
+Allowed changes:
+
+* The Offeror is allowed to change how the data transfer between nekRS and GNN fine-tuning occurrs, considering other solutions such as the file system, however the workflow must still be run in a clustered configuration. 
 
