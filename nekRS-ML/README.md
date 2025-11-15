@@ -51,18 +51,32 @@ Below are the system components the benchmark is designed to stress.
 **nekRS**
 
 * Accelerator HBM bandwidth
+  * Main kernels for pressure and velocity solve via iterative algorithms such as conjugate gradient are bandwidth bound
+* High-speed interconnect
+  * MPI communication during time step loop dominated by Isend/Irecv
 
-**Mesh-based consistent GNN**
+See the [nekRS performance analysis slides](./material/nekRS_performance_analysis.pdf) for more details.
 
-* Accelerator HBM size: memory size impacts both the size of the problem that can be solved (defined by the size of the sub-graph) and the model size (no model parallelism)
-* Accelerator HBM bandwidth: GNN GEMM, layer-norm, activations, and PyG reduce/scatter kernels are bandwidth bound
-* High-speed interconect: GNN halo exchange, which is implemented either as alltoallv or send-receive, requires large buffer sizes (~60MB) and is performed multiple times per training iteration (once per neural message passing layer in forward and backward pass, i.e. 16 times per iteration). An efficient halo exchange is key for scaling the model.
+**Dist-GNN Training and Inference**
+
+* Accelerator HBM size
+    * Memory size impacts the size of the problem that can be solved, defined by the size of the sub-graph we can fit on each GPU, thus the total graph size on the entire system
+    * Memory size also impacts the model size (number of parameters) since there is no model parallelism and both the sub-graph batch and the model (and associalted memory during forward and backward passes) must fit in memory
+* Accelerator HBM bandwidth
+    * GEMM, layer-norm, activations, and PyTorch Geometric reduce/scatter kernels are bandwidth bound
+* High-speed interconect
+    * Dist-GNN halo exchange, which is performed via `torch.distributed.nn.all_to_all`, is performed multiple times per training iteration (once per neural message passing layer in forward and backward pass, i.e. 16 times per iteration with the standard model configuration). An efficient halo exchange is key for scaling the model.
+
+See the [Dist-GNN performance analysis slides](./material/GNN_performance_analysis.pdf) for more details.
 
 **Online fine-tuning**
 
-* High-speed interconnect: training data transfer can be a bottleneck at scale on the GNN fine-tuning. Efficient data transfer is key for efficient fine-tuning at scale. The clustered deployment specifically tests the bisection bandwidth of the interconnect. 
-* System design: given specialized hardware for AI and Mod-Sim applications or the use of general purpose accelerators, the workflow measures how this hardware comes together to form the full system 
+* High-speed interconnect
+  * Efficient data transfer between nekRS and Dist-GNN training is important for efficient fine-tuning at scale. The clustered deployment specifically tests the bisection bandwidth of the interconnect. 
+* System design
+  * Given specialized hardware for AI and Mod-Sim applications or the use of general purpose accelerators, the workflow measures how this hardware comes together to form the full system 
 
+See the [data transfer performance analysis slides](./material/data_transfer_perf_analysis.pdf) for more details.
 
 ## Figures of Merit (FOMs)
 
