@@ -152,20 +152,30 @@ The ALCF-4 benchmark is located in the [shooting_workflow_adios](https://github.
 Instructions and the necessary scripts are provided in the benchmark directory, but are also summarized below.
 
 After building nekRS-ML, the `gen_run_script` can be used to generate the run/submit script, called `run.sh`, and the configuration file, called `config.yaml`, for the workflow. 
-For example, to generate a run script for Aurora, execute the following script **from a compute node**
+For example, to generate a run script for Aurora, execute the following script
 
 ```bash
-./gen_run_script system_name /path/to/nekRS
+./gen_run_script system_name /path/to/nekRS --nodes N --sim_nodes N/2 --train_nodes N/2
 ```
 
 taking notice of some important parameters:
 
 * `system_name`: This is the ALCF system to run on and determines which nekRS config script to run (e.g., [nrsrun_aurora](https://github.com/argonne-lcf/nekRS-ML/blob/alcf4/examples/shooting_workflow_adios/nrsrun_aurora) for Aurora). Please take a close look at these scripts for details on how the config file is generated, what environment variables are set, and how the workflow is executed.
 * `/path/to/nekRS`: The path to the install directory where nekRS was built
+* `--nodes`: This specifies the number of nodes to run the workflow on.
+* `--sim_nodes` and `--train_nodes`: This specifies the number of nodes to be assigned to nekRS and Dist-GNN training, respectively.
+
+To see more options, execute 
+
+```bash
+./gen_run_script --help
+```
+
+taking note of:
+
 * `--client`: This selects the client to be used to transfer data during online training and must be set to `adios` for this benchmark. This parameter is already set in `gen_run_script`.
 * `--deployment`: This selects the deployment strategy for the workflow. It is set to `clustered` for this benchmark (see the [data transfer performance analysis slides](./material/data_transfer_perf_analysis.pdf) for more detail on the deployment startegy).
 * `--venv_path`: The path to a virtual environment to load. This is not needed if the base environment has all the dependencies needed by the GNN. If a venv is not specified, the script will create one and install the needed dependencies.
-* For a full list of parameters accepted by `gen_run_script`, execute `./gen_run_script --help`.
 
 The `run.sh` script is composed of two steps:
 
