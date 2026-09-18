@@ -192,8 +192,10 @@ The output logs of the nekRS, trainer and inference will be within the `./logs_<
 Below are the FOMs collected on the Aurora system at ALCF. In the table, one PVC tile is considered a GPU, and the total node and GPU count used by the workflow are reported in the first and second columns (recall, during fine-tuning the GPUs are split evenly between nekRS and GNN training, while during solution shooting all GPUs are assigned to perform inference with the GNN).
 
 | Node count | GPU count | FOM_nekRS | FOM_train | FOM_transfer | FOM_inference | FOM_fine_tune | FOM_shoot |
-| --- | --- | --- |
-| 1 | 12 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 128 | 1536 | 1.139e+04 | 123.9 | 963.7 | 288.9 | 326.2 | 0.2537 |
+| 256 | 3072 | 2.212e+04 | 238.8 | 1908.0 | 543.4 | 630.7 | 0.2456 |
+| 512 | 1536 | 3.785e+04 | 438.2 | 3771.0 | 969.8 | 1166.0 | 0.2562 |
 
 
 ## Rules for running the benchmark
