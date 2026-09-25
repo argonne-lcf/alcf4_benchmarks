@@ -152,7 +152,7 @@ The ALCF-4 benchmark is located in the [shooting_workflow_adios](https://github.
 Instructions and the necessary scripts are provided in the benchmark directory, but are also summarized below.
 
 After building nekRS-ML, the `gen_run_script` can be used to generate the run/submit script, called `run.sh`, and the configuration file, called `config.yaml`, for the workflow. 
-The script takes the following parameters
+For example, to generate a run script for Aurora, execute the following script
 
 ```bash
 ./gen_run_script system_name /path/to/nekRS --nodes N --sim_nodes N/2 --train_nodes N/2
@@ -198,6 +198,17 @@ Below are the FOMs collected on the Aurora system at ALCF. In the table, one PVC
 | 512 | 1536 | 3.785e+04 | 438.2 | 3771.0 | 969.8 | 1166.0 | 0.2562 |
 | 1024 | 12288 | 6.618e+04 | 716.3 | 8375.0 | 1497 | 1960 | 0.2262 |
 | 2048 | 24576 | 63959.730 | 881.131 | 16566.781 | 1909.387 | 2477.493 | 0.299 |
+
+
+## Aurora FOMs
+
+**Warning:** Please check on the FOMs periodically as we refine the benchmark.
+
+Below are the FOMs collected on the Aurora system at ALCF. In the table, one PVC tile is considered as a GPU, and the total node and GPU count used by the workflow are reported in the first and second columns (recall, during fine-tuning the GPUs are split evenly between nekRS and GNN training, while during solution shooting all GPUs are assigned to perform inference with the GNN).
+
+| Node count | GPU count | FOM_nekRS | FOM_train | FOM_transfer | FOM_inference | FOM_fine_tune | FOM_shoot |
+| --- | --- | --- | --- | --- | --- |--- | --- |
+| 1 | 12 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
 
 
 ## Rules for running the benchmark
