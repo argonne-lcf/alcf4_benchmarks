@@ -200,17 +200,6 @@ Below are the FOMs collected on the Aurora system at ALCF. In the table, one PVC
 | 2048 | 24576 | 63959.730 | 881.131 | 16566.781 | 1909.387 | 2477.493 | 0.299 |
 
 
-## Aurora FOMs
-
-**Warning:** Please check on the FOMs periodically as we refine the benchmark.
-
-Below are the FOMs collected on the Aurora system at ALCF. In the table, one PVC tile is considered as a GPU, and the total node and GPU count used by the workflow are reported in the first and second columns (recall, during fine-tuning the GPUs are split evenly between nekRS and GNN training, while during solution shooting all GPUs are assigned to perform inference with the GNN).
-
-| Node count | GPU count | FOM_nekRS | FOM_train | FOM_transfer | FOM_inference | FOM_fine_tune | FOM_shoot |
-| --- | --- | --- | --- | --- | --- |--- | --- |
-| 1 | 12 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
-
-
 ## Rules for running the benchmark
 
 **Warning:** Please check on the run rules periodically as we refine the benchmark.
